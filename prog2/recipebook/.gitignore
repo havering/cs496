@@ -13,9 +13,14 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*
-/tmp/*
 !/log/.keep
-!/tmp/.keep
+/tmp
 
-# Ignore Byebug command history file.
-.byebug_history
+.idea
+.idea/*
+*junk*
+.DS_Store
+vendor/.DS_Store
+
+# ignore simplecov test coverage files
+coverage
