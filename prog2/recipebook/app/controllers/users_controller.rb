@@ -5,10 +5,9 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
-    puts "current user is #{@current_user}"
-    # unless @current_user
-    #   redirect_to root_path
-    # end
+    unless current_user
+      redirect_to login_path
+    end
   end
 
   # GET /users/1
