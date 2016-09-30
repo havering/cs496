@@ -4,9 +4,9 @@
       <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
 
       <ul>
-      <% recipe.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% recipe.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -32,8 +32,13 @@
   </div>
 
   <div class="field">
-    <%= f.label :cook_time %>
+    <%= f.label :cook_time_in_minutes %>
     <%= f.number_field :cook_time %>
+  </div>
+
+  <div class="field">
+    <%= f.label :publish_recipe? %>
+    <%= f.check_box :published, { checked: true } %>
   </div>
 
   <div class="actions">

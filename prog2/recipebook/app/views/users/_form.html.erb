@@ -4,9 +4,9 @@
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
-      <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -24,6 +24,13 @@
   <div class="field">
     <%= f.label :password %>
     <%= f.password_field :password, :placeholder => "Password" %>
+  </div>
+  <div class="field">
+    <%= f.label :public_profile %><br/>
+    <%= f.label :public_profile, "Yes", :value => "true" %>
+    <%= f.radio_button :public_profile, true %>
+    <%= f.label :public_profile, "No", :value => "false" %>
+    <%= f.radio_button :public_profile, false, :checked => true %>
   </div>
 
   <div class="actions">
