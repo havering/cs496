@@ -5,6 +5,10 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    puts "current user is #{@current_user}"
+    # unless @current_user
+    #   redirect_to root_path
+    # end
   end
 
   # GET /users/1
@@ -28,6 +32,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        session[:user_id] = @user.id
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -69,6 +74,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :username, :api_key, :password)
+      params.require(:user).permit(:name, :username, :password)
     end
 end
