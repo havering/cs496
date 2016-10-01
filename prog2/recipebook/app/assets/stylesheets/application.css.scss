@@ -13,23 +13,24 @@
  *= require_tree .
  *= require_self
  */
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+// example of extending div to bottom of page sourced from:
+// http://www.stackoverflow.com/questions/147528/how-do-i-force-a-div-block-to-extend-to-the-bottom-of-a-page-even-if-it-has-no-c
 
 td {
   padding: 5%;
 }
 
 #sidebar {
-  //background-image: url("/eat.jpg");
-  //background-size: 100% 100%;
-  //background-repeat: no-repeat;
   background-color: #bad4ff;
-  height: 100%;
-  align-items: stretch;
+  min-height: 600px;
+  height: auto !important;
+  height: 600px;
+  overflow: auto;
 }
 
-//#main-container {
-//  display: flex;
-//}
+#spacer {
+
+}
