@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Recipebook</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Recipebook</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+<div id="main-container" class="container">
+  <div class="row">
+    <div class="col-xs-2" id="sidebar">
+      <h3>Recipe Retriever</h3>
+      <%= link_to("Home", root_path) %><br>
+      <%= link_to("My Profile", user_path(current_user)) %>
+    </div>
+    <div class="col-xs-9">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+</body>
 </html>

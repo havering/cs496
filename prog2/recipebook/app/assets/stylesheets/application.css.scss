@@ -17,6 +17,19 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-body {
-  margin-left: 1%;
+td {
+  padding: 5%;
 }
+
+#sidebar {
+  //background-image: url("/eat.jpg");
+  //background-size: 100% 100%;
+  //background-repeat: no-repeat;
+  background-color: #bad4ff;
+  height: 100%;
+  align-items: stretch;
+}
+
+//#main-container {
+//  display: flex;
+//}
