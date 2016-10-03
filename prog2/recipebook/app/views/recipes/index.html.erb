@@ -7,9 +7,9 @@
   <tr>
     <th>Name</th>
     <th>Description</th>
-    <th>Instructions</th>
-    <th>Servings</th>
-    <th>Cook time</th>
+    <!--<th>Instructions</th>-->
+    <!--<th>Servings</th>-->
+    <!--<th>Cook time</th>-->
     <th colspan="3"></th>
   </tr>
   </thead>
@@ -17,11 +17,11 @@
   <tbody>
   <% @recipes.each do |recipe| %>
     <tr>
-      <td><%= recipe.name %></td>
+      <td><%= link_to(recipe.name, recipe_path(recipe)) %></td>
       <td><%= recipe.description %></td>
-      <td><%= recipe.instructions %></td>
-      <td><%= recipe.servings %></td>
-      <td><%= recipe.cook_time %></td>
+      <!--<td><%= recipe.instructions %></td>-->
+      <!--<td><%= recipe.servings %> people</td>-->
+      <!--<td><%= recipe.cook_time %> minutes</td>-->
       <td><%= link_to 'Show', recipe %></td>
       <% if recipe.user_id == current_user.id %>
         <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
