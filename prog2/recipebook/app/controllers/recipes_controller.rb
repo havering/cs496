@@ -4,7 +4,11 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.where(published: true)
+    if current_user
+      @recipes = Recipe.where(published: true)
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /recipes/1
@@ -62,13 +66,13 @@ class RecipesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_recipe
-      @recipe = Recipe.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_recipe
+    @recipe = Recipe.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def recipe_params
-      params.require(:recipe).permit(:name, :description, :instructions, :servings, :cook_time, :published)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def recipe_params
+    params.require(:recipe).permit(:name, :description, :instructions, :servings, :cook_time, :published)
+  end
 end
