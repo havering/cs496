@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
   get 'signup' => 'users#new'
+  get 'users/:id/recipes' => 'users#recipes', as: 'user_recipes'
 
   resources :recipes
   resources :users
