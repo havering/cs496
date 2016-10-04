@@ -22,13 +22,13 @@
       <!--<td><%= recipe.instructions %></td>-->
       <!--<td><%= recipe.servings %> people</td>-->
       <!--<td><%= recipe.cook_time %> minutes</td>-->
-      <td><%= link_to 'Show', recipe %></td>
+
       <% if recipe.user_id == current_user.id %>
+        <td><%= link_to 'Show', recipe %></td>
         <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
         <td><%= link_to 'Destroy', recipe, method: :delete, data: {confirm: 'Are you sure?'} %></td>
       <% else %>
-        <td></td>
-        <td></td>
+        <td colspan="3"><%= link_to 'Show', recipe %></td>
       <% end %>
     </tr>
   <% end %>
