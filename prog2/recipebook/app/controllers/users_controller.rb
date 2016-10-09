@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.where(public_profile: true)
     unless current_user
       redirect_to login_path
     end
@@ -13,6 +13,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    if @user.public_profile == false
+      redirect_to users_path
+    end
   end
 
   # GET /users/new

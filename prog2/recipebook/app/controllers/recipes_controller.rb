@@ -23,6 +23,9 @@ class RecipesController < ApplicationController
 
   # GET /recipes/1/edit
   def edit
+    if !current_user.recipes.includes?(@recipe)
+      redirect_to recipes_path
+    end
   end
 
   # POST /recipes
@@ -58,10 +61,14 @@ class RecipesController < ApplicationController
   # DELETE /recipes/1
   # DELETE /recipes/1.json
   def destroy
+    if current_user.recipes.include?(@recipe)
     @recipe.destroy
     respond_to do |format|
       format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
       format.json { head :no_content }
+    end
+    else
+      redirect_to recipes_path
     end
   end
 
