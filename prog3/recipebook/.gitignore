@@ -21,6 +21,7 @@
 *junk*
 .DS_Store
 vendor/.DS_Store
+.keep
 
 # ignore simplecov test coverage files
 coverage

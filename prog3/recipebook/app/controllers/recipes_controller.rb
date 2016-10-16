@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_recipe, only: [:edit, :update, :destroy]
   protect_from_forgery
 
   # GET /recipes
@@ -12,6 +12,8 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
+    response = Aws.list_item(params[:id])
+    render :json => response
   end
 
   # GET /recipes/new

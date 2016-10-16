@@ -65,15 +65,14 @@ module Aws
     response = @@dynamo_db.delete_item(params)
   end
 
-  def self.list_item(datetime, member_id)
+  def self.list_item(recipe_id)
     all_tables = @@dynamo_db.list_tables
     my_table = all_tables.table_names.first
 
     response = @@dynamo_db.get_item({
                                       table_name: my_table,
                                       key: {
-                                        'member_id' => member_id,
-                                        'datetime' => datetime
+                                        'recipe_id' => recipe_id.to_i,
                                       }
                                     })
     response.item
