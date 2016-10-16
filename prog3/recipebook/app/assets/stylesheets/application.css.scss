@@ -1,0 +1,40 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// example of extending div to bottom of page sourced from:
+// http://www.stackoverflow.com/questions/147528/how-do-i-force-a-div-block-to-extend-to-the-bottom-of-a-page-even-if-it-has-no-c
+
+td {
+  padding: 5%;
+}
+
+th {
+  margin-right: 5%
+}
+
+#sidebar {
+  background-color: #bad4ff;
+  min-height: 600px;
+  height: auto !important;
+  height: 600px;
+  overflow: auto;
+}
+
+#spacer {
+
+}
