@@ -1,18 +1,17 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:edit]
   protect_from_forgery
 
   # GET /recipes
   # GET /recipes.json
   def index
-    info = Aws.get_records_from_db
+    info = Aws.get_recipes_from_db
     render :json => info
   end
 
   # GET /recipes/1
   # GET /recipes/1.json
   def show
-    response = Aws.list_item(params[:id])
+    response = Aws.list_recipe(params[:id])
     render :json => response
   end
 
@@ -44,22 +43,13 @@ class RecipesController < ApplicationController
       'quantity' => quantity,
       'serving_size' => serving_size
     }
-    if Aws.save_records_to_db(aws_params)
+    if Aws.save_recipe_to_db(aws_params)
       msg = {:notice => "Recipe created!"}
       render :json => msg
     else
       msg = {:notice => "Error while save to DynamoDB!"}
       render :json => msg
     end
-    # respond_to do |format|
-    #   if @recipe.save
-    #     format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
-    #     format.json { render :show, status: :created, location: @recipe }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @recipe.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /recipes/1
@@ -82,7 +72,7 @@ class RecipesController < ApplicationController
       'quantity' => quantity,
       'serving_size' => serving_size
     }
-    if Aws.update_item(aws_params)
+    if Aws.update_recipe(aws_params)
       msg = {:notice => "Recipe updated!"}
       render :json => msg
     else
@@ -94,14 +84,13 @@ class RecipesController < ApplicationController
   # DELETE /recipes/1
   # DELETE /recipes/1.json
   def destroy
-    if current_user.recipes.include?(@recipe)
-      @recipe.destroy
-      respond_to do |format|
-        format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+    rid = params['id']
+    if Aws.delete_recipe(rid)
+      msg = {:notice => "Recipe deleted!"}
+      render :json => msg
     else
-      redirect_to recipes_path
+      msg = {:notice => "Error while deleting from DynamoDB!"}
+      render :json => msg
     end
   end
 
