@@ -56,6 +56,7 @@ module Aws
     @@dynamo_db.list_tables
   end
 
+  # example of finding highest value in a json response: http://stackoverflow.com/questions/9812624/max-value-for-a-multi-key-hash
   def self.get_new_id
     response = @@dynamo_db.scan(table_name: "recipes")
     max = response.items.map { |res| res["recipe_id"].to_f }.max
