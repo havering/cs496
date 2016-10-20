@@ -78,29 +78,42 @@ module Aws
     response.item
   end
 
-  def self.update_item(mess, name, email, datetime, member_id)
+  def self.update_item(params)
     all_tables = @@dynamo_db.list_tables
     my_table = all_tables.table_names.first
-
+    puts "params are #{params.inspect}"
+    puts "name? #{params[:custom_fields]}"
     response = @@dynamo_db.update_item({
-                                         table_name: my_table, # required
+                                         table_name: "recipes", # required
                                          key: {
-                                           'member_id' => member_id,
-                                           'datetime' => datetime
+                                           'recipe_id' => params[:custom_fields]['recipe_id'].to_i,
                                          },
                                          attribute_updates: {
-                                           "message" => {
-                                             value: mess,
-                                             action: "PUT",
-                                           },
                                            "name" => {
-                                             value: name,
+                                             value: params[:custom_fields]['name'],
                                              action: "PUT",
                                            },
-                                           "email" => {
-                                             value: email, # value <Hash,Array,String,Numeric,Boolean,IO,Set,nil>
-                                             action: "PUT", # accepts ADD, PUT, DELETE
+                                           "description" => {
+                                             value: params[:custom_fields]['description'],
+                                             action: "PUT",
+                                           },
+                                           "instructions" => {
+                                             value: params[:custom_fields]['instructions'],
+                                             action: "PUT",
+                                           },
+                                           "cook_time" => {
+                                             value: params[:custom_fields]['cook_time'].to_i,
+                                             action: "PUT",
+                                           },
+                                           "quantity" => {
+                                             value: params[:custom_fields]['quantity'],
+                                             action: "PUT",
+                                           },
+                                           "serving_size" => {
+                                             value: params[:custom_fields]['serving_size'].to_i,
+                                             action: "PUT",
                                            }
                                          }})
+
   end
 end
