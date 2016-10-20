@@ -94,6 +94,39 @@ class RecipesController < ApplicationController
     end
   end
 
+  # GET /recipes/1/ingredients
+  # GET /recipes/1/ingredients.json
+  def list_ingredients
+    items = Aws.get_ingredients_from_db
+    render :json => items
+  end
+
+  # PUT/POST/PATCH /recipes/1/ingredients
+  # PUT/POST/PATCH /recipes/1/ingredients.json
+  def add_ingredients
+    rid = params['id']
+    name = params['name']
+    quant = params['quantity']
+    meas = params['measurement']
+
+    ingredients = {
+      'name' => name,
+      'quantity' => quant,
+      'measurement' => meas,
+    }
+
+    puts "in controller, ingredients is #{ingredients.inspect}"
+
+    if Aws.save_ingredient_to_db(rid, ingredients)
+      msg = {:notice => "Ingredient created!"}
+      render :json => msg
+    else
+      msg = {:notice => "Error while creating ingredient!"}
+      render :json => msg
+    end
+
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe

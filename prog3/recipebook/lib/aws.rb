@@ -38,9 +38,7 @@ module Aws
   end
 
   def self.get_recipes_from_db
-    all_tables = @@dynamo_db.list_tables
-    my_table = all_tables.table_names.first
-    response = @@dynamo_db.scan(table_name: my_table)
+    response = @@dynamo_db.scan(table_name: "recipes")
     items = response.items
     items
   end
@@ -65,11 +63,8 @@ module Aws
   end
 
   def self.delete_recipe(recipe_id)
-    all_tables = @@dynamo_db.list_tables
-    my_table = all_tables.table_names.first
-
     params = {
-      table_name: my_table,
+      table_name: "recipes",
       key: {
         'recipe_id' => recipe_id.to_i,
       }
@@ -79,11 +74,8 @@ module Aws
   end
 
   def self.list_recipe(recipe_id)
-    all_tables = @@dynamo_db.list_tables
-    my_table = all_tables.table_names.first
-
     response = @@dynamo_db.get_item({
-                                      table_name: my_table,
+                                      table_name: "recipes",
                                       key: {
                                         'recipe_id' => recipe_id.to_i,
                                       }
@@ -92,10 +84,7 @@ module Aws
   end
 
   def self.update_recipe(params)
-    all_tables = @@dynamo_db.list_tables
-    my_table = all_tables.table_names.first
     puts "params are #{params.inspect}"
-    puts "name? #{params[:custom_fields]}"
     response = @@dynamo_db.update_item({
                                          table_name: "recipes", # required
                                          key: {
@@ -137,34 +126,38 @@ module Aws
   ############################################################
 
   #the method that save in aws database
-  def self.save_ingredient_to_db(params)
+  def self.save_ingredient_to_db(rid, ingredients)
     return if !@@dynamo_db
 
-    fields = {
-      'recipe_id' => get_number_of_records, #primary partition key based on number of items already in db
-    }
-    fields.merge!(params[:custom_fields]) if params[:custom_fields]
-    puts "fields are #{fields.inspect}"
-    # @@dynamo_table.items.create(fields)
+    puts "ingredients is: #{ingredients.inspect}"
+    if get_new_ing_id.nil?
+      iid = 0
+    else
+      iid = get_new_ing_id + 1
+    end
     response = @@dynamo_db.put_item({
                                       table_name: "ingredients", # required
                                       item: {# required
-                                             'recipe_id' => fields['recipe_id'],
-                                             'name' => fields['name'],
-                                             'description' => fields['description'],
-                                             'instructions' => fields['instructions'],
-                                             'cook_time' => fields['cook_time'],
-                                             'quantity' => fields['quantity'],
-                                             'serving_size' => fields['serving_size']
+                                             'recipe_id' => rid.to_i,
+                                             'ingredient_id' => iid.to_i,
+                                             'name' => ingredients['name'],
+                                             'quantity' => ingredients['quantity'],
+                                             'measurement' => ingredients['measurement'],
                                       }})
   end
 
   def self.get_ingredients_from_db
-    all_tables = @@dynamo_db.list_tables
-    my_table = all_tables.table_names.first
     response = @@dynamo_db.scan(table_name: "ingredients")
     items = response.items
     items
+  end
+
+  ## TODO: fix this so it queries only the relevant recipe id for max ingredient id
+  def self.get_new_ing_id
+    response = @@dynamo_db.scan(table_name: "ingredients")
+    max = response.items.map { |res| res["ingredient_id"].to_f }.max
+    puts "max is #{max}"
+    max
   end
 
   def self.delete_ingredient(recipe_id, ingredient_id)
@@ -195,7 +188,7 @@ module Aws
                                          table_name: "ingredients", # required
                                          key: {
                                            'recipe_id' => params[:custom_fields]['recipe_id'].to_i, #partition key
-                                           'ingredient_id' => params[:custom_fields]['recipe_id'].to_i  # sort key
+                                           'ingredient_id' => params[:custom_fields]['recipe_id'].to_i # sort key
                                          },
                                          attribute_updates: {
                                            "name" => {
