@@ -130,10 +130,10 @@ module Aws
     return if !@@dynamo_db
 
     puts "ingredients is: #{ingredients.inspect}"
-    if get_new_ing_id.nil?
+    if get_new_ing_id(rid).nil?
       iid = 0
     else
-      iid = get_new_ing_id + 1
+      iid = get_new_ing_id(rid) + 1
     end
     response = @@dynamo_db.put_item({
                                       table_name: "ingredients", # required
@@ -153,9 +153,10 @@ module Aws
   end
 
   ## TODO: fix this so it queries only the relevant recipe id for max ingredient id
-  def self.get_new_ing_id
+  def self.get_new_ing_id(rid)
     response = @@dynamo_db.scan(table_name: "ingredients")
-    max = response.items.map { |res| res["ingredient_id"].to_f }.max
+    finder = Hash[response.items.map { |h| h.values_at('recipe_id', 'ingredient_id') }]
+    max = finder[rid.to_d]
     puts "max is #{max}"
     max
   end
