@@ -97,7 +97,14 @@ class RecipesController < ApplicationController
   # GET /recipes/1/ingredients
   # GET /recipes/1/ingredients.json
   def list_ingredients
-    items = Aws.get_ingredients_from_db
+    rid = params[:id]
+    items = Aws.get_ingredients_from_db(rid)
+    render :json => items
+  end
+
+  # GET /recipes/ingredients
+  def all_ingredients
+    items = Aws.get_all_ingredients_from_db
     render :json => items
   end
 

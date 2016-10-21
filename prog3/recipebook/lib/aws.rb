@@ -146,13 +146,29 @@ module Aws
                                       }})
   end
 
-  def self.get_ingredients_from_db
+  def self.get_all_ingredients_from_db
     response = @@dynamo_db.scan(table_name: "ingredients")
     items = response.items
     items
   end
 
-  ## TODO: fix this so it queries only the relevant recipe id for max ingredient id
+  def self.get_ingredients_from_db(rid)
+    response = @@dynamo_db.query({
+                                   table_name: "ingredients",
+                                   select: "ALL_ATTRIBUTES",
+                                   key_conditions: {
+                                     "recipe_id" => {
+                                       attribute_value_list: [rid.to_i],
+                                       comparison_operator: "EQ"
+                                     }
+                                   }
+                                 })
+
+    items = response.items
+    puts "get_ing_from_db items: #{items.inspect}"
+    items
+  end
+
   def self.get_new_ing_id(rid)
     response = @@dynamo_db.scan(table_name: "ingredients")
     finder = Hash[response.items.map { |h| h.values_at('recipe_id', 'ingredient_id') }]
