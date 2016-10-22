@@ -177,6 +177,32 @@ module Aws
     max
   end
 
+  def self.delete_all_ingredients(recipe_id)
+    response = @@dynamo_db.query({
+                                       table_name: "ingredients",
+                                       select: "ALL_ATTRIBUTES",
+                                       key_conditions: {
+                                         "recipe_id" => {
+                                           attribute_value_list: [recipe_id.to_i],
+                                           comparison_operator: "EQ"
+                                         }
+                                       }
+                                     })
+
+        items = response.items
+
+    items.each do |it|
+      params = {
+        table_name: "ingredients",
+        key: {
+          'recipe_id' => recipe_id.to_i,
+          'ingredient_id' => it['ingredient_id'].to_i
+        }
+      }
+      @@dynamo_db.delete_item(params)
+    end
+  end
+
   def self.delete_ingredient(recipe_id, ingredient_id)
     params = {
       table_name: "ingredients",
@@ -205,34 +231,22 @@ module Aws
                                          table_name: "ingredients", # required
                                          key: {
                                            'recipe_id' => params[:custom_fields]['recipe_id'].to_i, #partition key
-                                           'ingredient_id' => params[:custom_fields]['recipe_id'].to_i # sort key
+                                           'ingredient_id' => params[:custom_fields]['ingredient_id'].to_i # sort key
                                          },
                                          attribute_updates: {
                                            "name" => {
                                              value: params[:custom_fields]['name'],
                                              action: "PUT",
                                            },
-                                           "description" => {
-                                             value: params[:custom_fields]['description'],
-                                             action: "PUT",
-                                           },
-                                           "instructions" => {
-                                             value: params[:custom_fields]['instructions'],
-                                             action: "PUT",
-                                           },
-                                           "cook_time" => {
-                                             value: params[:custom_fields]['cook_time'].to_i,
-                                             action: "PUT",
-                                           },
                                            "quantity" => {
-                                             value: params[:custom_fields]['quantity'],
+                                             value: params[:custom_fields]['quantity'].to_i,
                                              action: "PUT",
                                            },
-                                           "serving_size" => {
-                                             value: params[:custom_fields]['serving_size'].to_i,
+                                           "measurement" => {
+                                             value: params[:custom_fields]['measurement'],
                                              action: "PUT",
                                            }
                                          }})
-
+  # response
   end
 end

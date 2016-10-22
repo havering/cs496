@@ -85,7 +85,7 @@ class RecipesController < ApplicationController
   # DELETE /recipes/1.json
   def destroy
     rid = params['id']
-    if Aws.delete_recipe(rid)
+    if Aws.delete_recipe(rid) && Aws.delete_associated_ingredients(rid)
       msg = {:notice => "Recipe deleted!"}
       render :json => msg
     else
@@ -108,8 +108,8 @@ class RecipesController < ApplicationController
     render :json => items
   end
 
-  # PUT/POST/PATCH /recipes/1/ingredients
-  # PUT/POST/PATCH /recipes/1/ingredients.json
+  # POST recipes/1/ingredients
+  # POST /recipes/1/ingredients.json
   def add_ingredients
     rid = params['id']
     name = params['name']
@@ -122,8 +122,6 @@ class RecipesController < ApplicationController
       'measurement' => meas,
     }
 
-    puts "in controller, ingredients is #{ingredients.inspect}"
-
     if Aws.save_ingredient_to_db(rid, ingredients)
       msg = {:notice => "Ingredient created!"}
       render :json => msg
@@ -131,7 +129,60 @@ class RecipesController < ApplicationController
       msg = {:notice => "Error while creating ingredient!"}
       render :json => msg
     end
+  end
 
+  # PUT/PATCH recipes/1/ingredients/1
+  def update_ingredients
+    rid = params['id']
+    iid = params['ingredient_id']
+    name = params['name']
+    quant = params['quantity']
+    meas = params['measurement']
+
+    aws_params = Hash.new
+    aws_params[:custom_fields] = {
+      'recipe_id' => rid,
+      'ingredient_id' => iid,
+      'name' => name,
+      'quantity' => quant,
+      'measurement' => meas,
+    }
+
+    if Aws.update_ingredient(aws_params)
+      msg = {:notice => "Ingredient updated!"}
+      render :json => msg
+    else
+      msg = {:notice => "Error while updating ingredient!"}
+      render :json => msg
+    end
+  end
+
+  # DELETE /recipes/1/
+  # DELETE /recipes/1.json
+  def delete_all_ingredients
+    rid = params['id']
+
+    if Aws.delete_all_ingredients(rid)
+      msg = {:notice => "All ingredients deleted!"}
+      render :json => msg
+    else
+      msg = {:notice => "Error while deleting all ingredients!"}
+      render :json => msg
+    end
+  end
+
+  # DELETE /recipes/1/ingredients/1
+  def delete_ingredient
+    rid = params['id']
+    iid = params['ingredient_id']
+
+    if Aws.delete_ingredient(rid, iid)
+      msg = {:notice => "Ingredient deleted!"}
+      render :json => msg
+    else
+      msg = {:notice => "Error while deleting ingredient!"}
+      render :json => msg
+    end
   end
 
   private
