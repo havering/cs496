@@ -85,7 +85,7 @@ class RecipesController < ApplicationController
   # DELETE /recipes/1.json
   def destroy
     rid = params['id']
-    if Aws.delete_recipe(rid) && Aws.delete_associated_ingredients(rid)
+    if Aws.delete_recipe(rid) && Aws.delete_all_ingredients(rid)
       msg = {:notice => "Recipe deleted!"}
       render :json => msg
     else

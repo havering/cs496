@@ -40,6 +40,7 @@ module Aws
   def self.get_recipes_from_db
     response = @@dynamo_db.scan(table_name: "recipes")
     items = response.items
+    puts "items: #{items.inspect}"
     items
   end
 
