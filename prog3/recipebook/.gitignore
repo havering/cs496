@@ -34,4 +34,4 @@ coverage
 recipebook.pem
 
 # ignore AWS config file
-/config/aws_dynamo.yml
+#/config/aws_dynamo.yml
