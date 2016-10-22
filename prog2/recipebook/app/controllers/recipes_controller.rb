@@ -23,7 +23,7 @@ class RecipesController < ApplicationController
 
   # GET /recipes/1/edit
   def edit
-    if !current_user.recipes.includes?(@recipe)
+    if !current_user.recipes.include?(@recipe)
       redirect_to recipes_path
     end
   end
