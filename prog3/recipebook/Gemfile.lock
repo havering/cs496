@@ -47,7 +47,6 @@ GEM
       jmespath (~> 1.0)
     aws-sdk-resources (2.6.6)
       aws-sdk-core (= 2.6.6)
-    bcrypt (3.1.11)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     builder (3.2.2)
@@ -172,7 +171,6 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   aws-sdk
-  bcrypt (~> 3.1.7)
   bootstrap-sass (~> 3.2.0)
   byebug
   coffee-rails (~> 4.2)
