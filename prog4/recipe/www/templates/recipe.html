@@ -1,0 +1,30 @@
+<ion-view view-title="Recipe">
+  <ion-content>
+    <div class="list card">
+      <div class="item">
+        <h3>{{recipe.name}}</h3>
+        <h2>{{recipe.description}}</h2>
+        <p>{{recipe.cook_time}}</p>
+        <p>{{recipe.serving_size}}</p>
+
+      </div>
+      <div class="item item-body">
+        <p>{{recipe.instructions}}</p>
+      </div>
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item">
+          <i class="icon ion-thumbsup"></i>
+          Like
+        </a>
+        <a class="tab-item">
+          <i class="icon ion-chatbox"></i>
+          Comment
+        </a>
+        <a class="tab-item">
+          <i class="icon ion-share"></i>
+          Share
+        </a>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
