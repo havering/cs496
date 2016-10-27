@@ -1,0 +1,42 @@
+<!-- forms in ionic: https://www.tutorialspoint.com/ionic/ionic_forms.htm -->
+<ion-view view-title="New">
+  <ion-content>
+    <h1>New Recipe</h1>
+    <p>Want to create a new recipe for users to make? Fill out the form below!</p>
+    <form ng-submit="submitRecipe(data)">
+    <div class="list">
+   <label class="item item-input item-stacked-label">
+   <span class="input-label">Name</span>
+   <input type="text" name="name">
+   </label>
+
+   <label class="item item-input item-stacked-label">
+   <span class="input-label">Description</span>
+   <input type="text" name="description">
+   </label>
+
+   <label class="item item-input item-stacked-label">
+   <span class="input-label">Instructions</span>
+   <input type="text" name="instructions">
+   </label>
+
+   <label class="item item-input item-stacked-label">
+   <span class="input-label">Cook Time</span>
+   <input type="number" name="cook_time">
+   </label>
+
+   <label class="item item-input item-stacked-label">
+   <span class="input-label">Cook Time Measurement</span>
+   <input type="text" name="quantity">
+   </label>
+
+   <label class="item item-input item-stacked-label">
+   <span class="input-label">Serving Size</span>
+   <input type="number" name="serving_size">
+   </label>
+   <br/>
+   <center><button class="button" type="submit">Submit</button></center>
+</div>
+</form>
+  </ion-content>
+</ion-view>
