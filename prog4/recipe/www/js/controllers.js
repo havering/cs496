@@ -45,7 +45,7 @@ angular.module('starter.controllers', ['starter.services'])
  
     $scope.submitRecipe = function(){
         var link = 'http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/';
- 
+        console.log("Scope data contains: " + JSON.stringify($scope.data));
         $http.post(link, {name: $scope.data.name, description: $scope.data.description, instructions: $scope.data.instructions, cook_time: parseInt($scope.data.cook_time), serving_size: parseInt($scope.data.serving_size), quantity: $scope.data.quantity}).then(function (res){
             $scope.response = res.data;
             console.log("Response from POST: " + JSON.stringify($scope.response));

@@ -3,36 +3,36 @@
   <ion-content>
     <h1>New Recipe</h1>
     <p>Want to create a new recipe for users to make? Fill out the form below!</p>
-    <form ng-submit="submitRecipe(data)">
+    <form ng-submit="submitRecipe()">
     <div class="list">
    <label class="item item-input item-stacked-label">
    <span class="input-label">Name</span>
-   <input type="text" name="name">
+   <input type="text" name="name" ng-model="data.name">
    </label>
 
    <label class="item item-input item-stacked-label">
    <span class="input-label">Description</span>
-   <input type="text" name="description">
+   <input type="text" name="description" ng-model="data.description">
    </label>
 
    <label class="item item-input item-stacked-label">
    <span class="input-label">Instructions</span>
-   <input type="text" name="instructions">
+   <input type="text" name="instructions" ng-model="data.instructions">
    </label>
 
    <label class="item item-input item-stacked-label">
    <span class="input-label">Cook Time</span>
-   <input type="number" name="cook_time">
+   <input type="number" name="cook_time" ng-model="data.cook_time">
    </label>
 
    <label class="item item-input item-stacked-label">
    <span class="input-label">Cook Time Measurement</span>
-   <input type="text" name="quantity">
+   <input type="text" name="quantity" ng-model="data.quantity">
    </label>
 
    <label class="item item-input item-stacked-label">
    <span class="input-label">Serving Size</span>
-   <input type="number" name="serving_size">
+   <input type="number" name="serving_size" ng-model="data.serving_size">
    </label>
    <br/>
    <center><button class="button" type="submit">Submit</button></center>
