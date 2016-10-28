@@ -49,8 +49,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
-
+    // reloading the controller with every view: http://stackoverflow.com/questions/27058276/run-a-controller-function-whenever-a-view-is-opened-shown
     .state('app.recipes', {
+      cache: false,
       url: '/recipes',
       views: {
         'menuContent': {
@@ -61,6 +62,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     })
 
   .state('app.recipe', {
+    cache: false,
     url: '/recipes/:recipe_id',
     views: {
       'menuContent': {
