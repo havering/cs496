@@ -11,3 +11,11 @@
 .nocolor {
 	background-color: #fff;
 }
+
+.inset {
+	margin-left: 4%;
+}
+
+#italic {
+	font-style: italic;
+}

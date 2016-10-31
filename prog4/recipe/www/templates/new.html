@@ -5,35 +5,51 @@
     <p>Want to create a new recipe for users to make? Fill out the form below!</p>
     <form ng-submit="submitRecipe()">
     <div class="list">
-   <label class="item item-input item-stacked-label">
+   <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Name</span>
    <input type="text" name="name" ng-model="data.name">
    </label>
 
-   <label class="item item-input item-stacked-label">
+   <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Description</span>
    <input type="text" name="description" ng-model="data.description">
    </label>
 
-   <label class="item item-input item-stacked-label">
+   <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Instructions</span>
    <input type="text" name="instructions" ng-model="data.instructions">
    </label>
 
-   <label class="item item-input item-stacked-label">
+   <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Cook Time</span>
    <input type="number" name="cook_time" ng-model="data.cook_time">
    </label>
 
-   <label class="item item-input item-stacked-label">
+   <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Cook Time Measurement</span>
    <input type="text" name="quantity" ng-model="data.quantity">
    </label>
 
-   <label class="item item-input item-stacked-label">
+   <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Serving Size</span>
    <input type="number" name="serving_size" ng-model="data.serving_size">
    </label>
+
+   <!-- Dynamically adding items to form: http://stackoverflow.com/questions/31579909/add-more-button-for-generating-dynamic-form-inputs-using-ionic-framework -->
+   <label class="item item-input item-stacked-label">
+   <span class="input-label">Ingredients</span>
+   <p>Structure: quantity measurement name</p>
+   <p id="italic">Example: 1 tbsp water</p>
+   </label>
+   <div class="list list-inset">
+   <div class="item-input" ng-repeat="input in inputs">
+   <label class="item-input-wrapper">
+    <input type="text" ng-model="input.value" />
+    </label>
+    <button ng-if="$index == inputs.length - 1" ng-click="addInput()" class="button button-small button-balanced" style="margin-right: 2%"><b>+</b></button>
+    <button ng-if="$index != inputs.length - 1" ng-click="removeInput($index)" class="button button-small button-assertive"  style="margin-right: 2%">
+    <b>-</b></button>
+    </div></div>
    <br/>
    <center><button class="button" type="submit">Submit</button></center>
 </div>

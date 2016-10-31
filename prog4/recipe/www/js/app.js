@@ -41,7 +41,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-    .state('app.new', {
+  .state('app.mynav', {
+    url: '/mynav',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/mynav.html'
+      }
+    }
+  })
+
+   .state('app.new', {
       cache: false,
     url: '/recipes/new',
     views: {
@@ -73,5 +82,5 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/recipes');
+  $urlRouterProvider.otherwise('/app/mynav');
 });

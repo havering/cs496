@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -43,15 +43,35 @@ angular.module('starter.controllers', ['starter.services'])
   // POSTing with ionic: http://www.nikola-breznjak.com/blog/codeproject/posting-data-from-ionic-app-to-php-server/
   $scope.data = {};
  
-    $scope.submitRecipe = function(){
-        var link = 'http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/';
-        console.log("Scope data contains: " + JSON.stringify($scope.data));
-        $http.post(link, {name: $scope.data.name, description: $scope.data.description, instructions: $scope.data.instructions, cook_time: parseInt($scope.data.cook_time), serving_size: parseInt($scope.data.serving_size), quantity: $scope.data.quantity}).then(function (res){
-            $scope.response = res.data;
-            console.log("Response from POST: " + JSON.stringify($scope.response));
-            $location.path('/recipes');
+  $scope.submitRecipe = function(){
+      var link = 'http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/';
+      console.log("Scope data contains: " + JSON.stringify($scope.data));
+      console.log("Scope inputs contains: " + JSON.stringify($scope.inputs));
+      $http.post(link, {name: $scope.data.name, description: $scope.data.description, instructions: $scope.data.instructions, cook_time: parseInt($scope.data.cook_time), serving_size: parseInt($scope.data.serving_size), quantity: $scope.data.quantity}).then(function (res){
+          $scope.response = res.data;
+          console.log("Response from POST: " + JSON.stringify($scope.response));
+          $location.path('/recipes');
         });
     };
+
+  // functions to add or remove ingredient fields from form
+  $scope.inputs = [
+      { value: null }
+    ];
+
+  $scope.addInput = function () {
+    $scope.inputs.push({ value: null });
+  }
+
+  $scope.removeInput = function (index) {
+    $scope.inputs.splice(index, 1);
+  }
+
+  // function to allow jump to different view
+  $scope.gotorecipes = function(){ 
+    console.log("inside gotorecipes");
+    $window.location.assign('#/app/recipes');
+  }
 })
 
 .controller('RecipesCtrl', function($scope, Api) {
@@ -62,5 +82,4 @@ angular.module('starter.controllers', ['starter.services'])
   console.log("recipe_id: " + parseInt($stateParams.recipe_id));
   $scope.recipe = Api.Recipe.get({recipe_id: parseInt($stateParams.recipe_id)});
   $scope.ingredients = Api.Ingredients.query({recipe_id: parseInt($stateParams.recipe_id)});
-  console.log("ingredients: " + $scope.ingredients);
 })
