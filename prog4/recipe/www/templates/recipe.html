@@ -1,30 +1,22 @@
-<ion-view view-title="Recipe">
+<ion-view>
   <ion-content>
     <div class="list card">
       <div class="item">
-        <h3>{{recipe.name}}</h3>
-        <h2>{{recipe.description}}</h2>
+        <h2><b>{{recipe.name}}</b></h2>
+        <h3>{{recipe.description}}</h3>
         <p>Cook time: {{recipe.cook_time}} {{recipe.quantity}}</p>
         <p>Serving size: {{recipe.serving_size}}</p>
 
       </div>
       <div class="item item-body">
-      <h3>Instructions</h3>
+      <h3><b>Instructions</b></h3>
         <p>{{recipe.instructions}}</p>
       </div>
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item">
-          <i class="icon ion-thumbsup"></i>
-          Like
-        </a>
-        <a class="tab-item">
-          <i class="icon ion-chatbox"></i>
-          Comment
-        </a>
-        <a class="tab-item">
-          <i class="icon ion-share"></i>
-          Share
-        </a>
+      <div class="item item-body">
+      	<h3>Ingredients</h3>
+      	<p ng-repeat="ingredient in ingredients">
+      	{{ingredient.quantity}} {{ingredient.measurement}} {{ingredient.name}}
+      	</p>
       </div>
     </div>
   </ion-content>

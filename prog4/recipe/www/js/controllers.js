@@ -54,11 +54,13 @@ angular.module('starter.controllers', ['starter.services'])
     };
 })
 
-.controller('RecipesCtrl', function($scope, Recipe) {
-  $scope.recipes = Recipe.query();
+.controller('RecipesCtrl', function($scope, Api) {
+  $scope.recipes = Api.Recipe.query();
 })
 
-.controller('RecipeCtrl', function($scope, $stateParams, Recipe) {
+.controller('RecipeCtrl', function($scope, $stateParams, Api) {
   console.log("recipe_id: " + parseInt($stateParams.recipe_id));
-  $scope.recipe = Recipe.get({recipe_id: parseInt($stateParams.recipe_id)});
+  $scope.recipe = Api.Recipe.get({recipe_id: parseInt($stateParams.recipe_id)});
+  $scope.ingredients = Api.Ingredients.query({recipe_id: parseInt($stateParams.recipe_id)});
+  console.log("ingredients: " + $scope.ingredients);
 })

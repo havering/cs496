@@ -1,7 +1,8 @@
 <ion-view view-title="Recipes">
   <ion-content>
+  <br/>
     <ion-list>
-      <ion-item ng-repeat="recipe in recipes" href="#/app/recipes/{{recipe.recipe_id | number:0}}">
+      <ion-item class="bordered" ng-repeat="recipe in recipes" href="#/app/recipes/{{recipe.recipe_id | number:0}}">
         {{recipe.name}}
       </ion-item>
     </ion-list>
