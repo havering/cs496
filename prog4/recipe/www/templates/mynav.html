@@ -1,14 +1,15 @@
 <ion-view title="Welcome to Recipebook!">
   <ion-content>
-  <br/>
+
+
+  <div id="greeting">
+  <h4>Welcome!</h4>
+  <p>We see that you are located in {{fullAddress.address.city}}, {{fullAddress.address.state}}. Please consider submitting a local recipe!</p>
+  </div>
   <div class="button-bar">
   <a class="button button-outline button-royal" ng-click="gotorecipes()">Recipes</a>
   <a class="button button-outline button-royal" ng-href="#/app/recipes/new">Add Recipe</a>
   <a class="button button-outline button-royal" ng-href="#/app/search">Search</a>
-  </div>
-  <div id="greeting">
-  <h4>Welcome!</h4>
-  <p>We see that you are located in {{fullAddress.address.city}}, {{fullAddress.address.state}}. Please consider submitting a local recipe!</p>
   </div>
   </ion-content>
 </ion-view>
