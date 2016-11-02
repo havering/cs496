@@ -1,6 +1,6 @@
-angular.module('starter.controllers', ['starter.services'])
+angular.module('starter.controllers', ['starter.services', 'ngCordova'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window, $cordovaGeolocation) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -68,11 +68,32 @@ angular.module('starter.controllers', ['starter.services'])
   }
 
   // function to allow jump to different view
+  // guidelines from: http://stackoverflow.com/questions/11784656/angularjs-location-not-changing-the-path
   $scope.gotorecipes = function(){ 
-    console.log("inside gotorecipes");
     $window.location.assign('#/app/recipes');
   }
-})
+ 
+  // function to determine where the user is located
+  // cordovaGeolocation example: http://stackoverflow.com/questions/34850918/ionic-reverse-geocoding
+  var posOptions = {timeout: 10000, enableHighAccuracy: false};
+   $cordovaGeolocation
+   .getCurrentPosition(posOptions)
+  
+   .then(function (position) {
+      $scope.lat  = position.coords.latitude;
+      $scope.long = position.coords.longitude;
+      console.log($scope.lat + '   ' + $scope.long);
+
+      // now call the openstreetmap api
+      $scope.fullAddress = Api.Address.get({latitude: $scope.lat, longitude: $scope.long});
+      console.log("full address length: " + Object.keys($scope.fullAddress).length);
+      console.dir($scope.fullAddress);
+      console.log($scope.fullAddress);
+    
+   }, function(err) {
+      console.log(err)
+   });
+}) // end of AppCtrl
 
 .controller('RecipesCtrl', function($scope, Api) {
   $scope.recipes = Api.Recipe.query();
