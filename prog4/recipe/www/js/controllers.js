@@ -86,9 +86,7 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
 
       // now call the openstreetmap api
       $scope.fullAddress = Api.Address.get({latitude: $scope.lat, longitude: $scope.long});
-      console.log("full address length: " + Object.keys($scope.fullAddress).length);
       console.dir($scope.fullAddress);
-      console.log($scope.fullAddress);
     
    }, function(err) {
       console.log(err)
