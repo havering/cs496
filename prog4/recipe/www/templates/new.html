@@ -8,32 +8,32 @@
     <form name="recipeForm" novalidate>
     <div class="list">
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
-   <span class="input-label">Name</span>
+   <span class="input-label">Name  <span ng-show="recipeForm.name.$error.required" style="font-size: 10pt; color: red">- required</span></span>
    <input type="text" name="name" ng-model="data.name" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
-   <span class="input-label">Description</span>
+   <span class="input-label">Description  <span ng-show="recipeForm.description.$error.required" style="font-size: 10pt; color: red">- required</span></span>
    <input type="text" name="description" ng-model="data.description" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
-   <span class="input-label">Instructions</span>
+   <span class="input-label">Instructions <span ng-show="recipeForm.instructions.$error.required" style="font-size: 10pt; color: red">- required</span></span>
    <input type="text" name="instructions" ng-model="data.instructions" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
-   <span class="input-label">Cook Time <span style="font-size: 10pt; font-style: italic">(numeric input only)</span></span>
+   <span class="input-label">Cook Time  <span ng-show="recipeForm.cook_time.$error.required" style="font-size: 10pt; color: red">- required</span></span>
    <input type="number" name="cook_time" ng-model="data.cook_time" ng-pattern="regex" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
-   <span class="input-label">Cook Time Measurement</span>
+   <span class="input-label">Cook Time Measurement <span ng-show="recipeForm.quantity.$error.required" style="font-size: 10pt; color: red">- required</span></span>
    <input type="text" name="quantity" ng-model="data.quantity" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
-   <span class="input-label">Serving Size <span style="font-size: 10pt; font-style: italic">(numeric input only)</span></span>
+   <span class="input-label">Serving Size <span ng-show="recipeForm.serving_size.$error.required" style="font-size: 10pt; color: red">- required</span></span>
    <input type="number" name="serving_size" ng-model="data.serving_size" ng-pattern="regex" required>
    </label>
 
@@ -53,14 +53,9 @@
     <b>-</b></button>
     </div></div> -->
     <div class="padding">
-    <p ng-show="recipeForm.name.$error.required"><b>Name</b> is required</p>
-    <p ng-show="recipeForm.description.$error.required"><b>Description</b> is required</p>
-    <p ng-show="recipeForm.instructions.$error.required"><b>Instructions</b> are required</p>
-    <p ng-show="recipeForm.cook_time.$error.required"><b>Cook time</b> is required</p>
-    <p ng-show="recipeForm.quantity.$error.required"><b>Measurement of cook time</b> is required</p>
-    <p ng-show="recipeForm.serving_size.$error.required"><b>Serving size</b> is required</p>
-    <p ng-show="recipeForm.serving_size.$error.pattern"><b>Serving size</b> must be a numeric input.</p>
-    <p ng-show="recipeForm.cook_time.$error.pattern"><b>Cook time</b> must be a numeric input.</p>
+    <div ng-messages="recipeForm.cook_time.$error">
+    <div ng-message="pattern">Must be numeric</div>
+    </div>
     </div>
    <br/>
    <div class="padding">
