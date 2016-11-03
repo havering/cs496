@@ -1,38 +1,40 @@
 <!-- forms in ionic: https://www.tutorialspoint.com/ionic/ionic_forms.htm -->
+<!-- form validation in ionic: https://www.thepolyglotdeveloper.com/2015/08/angularjs-form-validation-in-your-ionic-framework-app/ -->
+<!-- using ngPattern to validate numeric input: https://docs.angularjs.org/api/ng/directive/ngPattern -->
 <ion-view view-title="New Recipe">
   <ion-content>
     <br/>
     <p>Want to create a new recipe for users to make? Fill out the form below!</p>
-    <form ng-submit="submitRecipe()">
+    <form name="recipeForm" novalidate>
     <div class="list">
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Name</span>
-   <input type="text" name="name" ng-model="data.name">
+   <input type="text" name="name" ng-model="data.name" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Description</span>
-   <input type="text" name="description" ng-model="data.description">
+   <input type="text" name="description" ng-model="data.description" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Instructions</span>
-   <input type="text" name="instructions" ng-model="data.instructions">
+   <input type="text" name="instructions" ng-model="data.instructions" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
-   <span class="input-label">Cook Time</span>
-   <input type="number" name="cook_time" ng-model="data.cook_time">
+   <span class="input-label">Cook Time <span style="font-size: 10pt; font-style: italic">(numeric input only)</span></span>
+   <input type="number" name="cook_time" ng-model="data.cook_time" ng-pattern="regex" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Cook Time Measurement</span>
-   <input type="text" name="quantity" ng-model="data.quantity">
+   <input type="text" name="quantity" ng-model="data.quantity" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
-   <span class="input-label">Serving Size</span>
-   <input type="number" name="serving_size" ng-model="data.serving_size">
+   <span class="input-label">Serving Size <span style="font-size: 10pt; font-style: italic">(numeric input only)</span></span>
+   <input type="number" name="serving_size" ng-model="data.serving_size" ng-pattern="regex" required>
    </label>
 
    <!-- Dynamically adding items to form: http://stackoverflow.com/questions/31579909/add-more-button-for-generating-dynamic-form-inputs-using-ionic-framework -->
@@ -50,8 +52,20 @@
     <button ng-if="$index != inputs.length - 1" ng-click="removeInput($index)" class="button button-small button-assertive"  style="margin-right: 2%">
     <b>-</b></button>
     </div></div> -->
+    <div class="padding">
+    <p ng-show="recipeForm.name.$error.required"><b>Name</b> is required</p>
+    <p ng-show="recipeForm.description.$error.required"><b>Description</b> is required</p>
+    <p ng-show="recipeForm.instructions.$error.required"><b>Instructions</b> are required</p>
+    <p ng-show="recipeForm.cook_time.$error.required"><b>Cook time</b> is required</p>
+    <p ng-show="recipeForm.quantity.$error.required"><b>Measurement of cook time</b> is required</p>
+    <p ng-show="recipeForm.serving_size.$error.required"><b>Serving size</b> is required</p>
+    <p ng-show="recipeForm.serving_size.$error.pattern"><b>Serving size</b> must be a numeric input.</p>
+    <p ng-show="recipeForm.cook_time.$error.pattern"><b>Cook time</b> must be a numeric input.</p>
+    </div>
    <br/>
-   <center><button class="button" type="submit">Submit</button></center>
+   <div class="padding">
+   <center><button class="button" ng-disabled="recipeForm.$invalid" ng-submit="submitRecipe()">Submit</button></center>
+   </div>
 </div>
 </form>
   </ion-content>

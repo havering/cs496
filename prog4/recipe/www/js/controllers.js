@@ -91,6 +91,9 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
    }, function(err) {
       console.log(err)
    });
+
+   // set regex to detect if number is entered or not
+   $scope.regex = '\\d+';
 }) // end of AppCtrl
 
 .controller('RecipesCtrl', function($scope, Api) {
