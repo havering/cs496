@@ -100,5 +100,5 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
 .controller('RecipeCtrl', function($scope, $stateParams, Api) {
   console.log("recipe_id: " + parseInt($stateParams.recipe_id));
   $scope.recipe = Api.Recipe.get({recipe_id: parseInt($stateParams.recipe_id)});
-  $scope.ingredients = Api.Ingredients.query({recipe_id: parseInt($stateParams.recipe_id)});
+  $scope.ingredients = Api.RecipeIngredients.query({recipe_id: parseInt($stateParams.recipe_id)});
 })

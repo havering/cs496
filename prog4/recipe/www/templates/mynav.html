@@ -1,15 +1,17 @@
 <ion-view title="Welcome to Recipebook!">
   <ion-content>
 
-
+  <br/>
   <div id="greeting">
   <h4>Welcome!</h4>
-  <p>We see that you are located in {{fullAddress.address.city}}, {{fullAddress.address.state}}. Please consider submitting a local recipe!</p>
+  <p>You seem to be located in {{fullAddress.address.city}}, {{fullAddress.address.state}}. 
+  <br/>Please consider submitting a local recipe!</p>
   </div>
-  <div class="button-bar">
-  <a class="button button-outline button-royal" ng-click="gotorecipes()">Recipes</a>
-  <a class="button button-outline button-royal" ng-href="#/app/recipes/new">Add Recipe</a>
-  <a class="button button-outline button-royal" ng-href="#/app/search">Search</a>
-  </div>
+  <div id="center">
+  <div class="list list-inset">
+  <div class="item item-icon-left" ng-click="gotorecipes()"><i class="icon ion-fork">Recipes</i></div>
+  <div class="item item-icon-left"><a ng-href="#/app/recipes/new" class="dark"><i class="icon ion-ios-plus">Add Recipe</i></a></div>
+  <!-- <div class="item item-icon-left"><a ng-href="#/app/search" class="dark"><i class="icon ion-ios-search">Search</i></a></div> -->
+  </div></div>
   </ion-content>
 </ion-view>

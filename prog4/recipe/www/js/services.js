@@ -4,7 +4,7 @@ angular.module('starter.services', ['ngResource'])
 .factory('Api', function ($resource) {
     return {
     	Recipe: $resource('http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/:recipe_id'),
-    	Ingredients: 	$resource('http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/:recipe_id/ingredients'),
+    	RecipeIngredients: 	$resource('http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/:recipe_id/ingredients'),
     	Address: $resource('http://nominatim.openstreetmap.org/reverse?format=json&lat=:latitude&lon=:longitude&addressdetails=1')
     };
 });

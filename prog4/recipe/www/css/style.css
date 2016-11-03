@@ -20,6 +20,23 @@
 	font-style: italic;
 }
 
-#greeting {
+#greeting, h4 {
 	text-align: center;
+	color: #444444;
+}
+
+#center .item {
+	/*background-color: #fff;*/
+	border: 1px solid #fff;
+	padding-right: 40px;
+	padding: 30px;
+}
+
+#center {
+	margin: auto;
+	width: 65%;
+}
+
+#center .item:hover {
+	background-color: #fff;
 }

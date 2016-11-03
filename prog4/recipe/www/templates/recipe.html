@@ -13,10 +13,12 @@
         <p>{{recipe.instructions}}</p>
       </div>
       <div class="item item-body">
+      <div ng-if="ingredients.length > 0">
       	<h3><b>Ingredients</b></h3>
       	<p ng-repeat="ingredient in ingredients">
       	{{ingredient.quantity}} {{ingredient.measurement}} {{ingredient.name}}
       	</p>
+      </div>
       </div>
     </div>
   </ion-content>
