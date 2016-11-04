@@ -5,7 +5,7 @@
   <ion-content>
     <br/>
     <p>Want to create a new recipe for users to make? Fill out the form below!</p>
-    <form name="recipeForm" novalidate>
+    <form name="recipeForm" ng-submit="submitRecipe()" novalidate>
     <div class="list">
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Name  <span ng-show="recipeForm.name.$error.required" style="font-size: 10pt; color: red">- required</span></span>
@@ -23,7 +23,7 @@
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
-   <span class="input-label">Cook Time  <span ng-show="recipeForm.cook_time.$error.required" style="font-size: 10pt; color: red">- required</span></span>
+   <span class="input-label">Cook Time  <span style="font-size: 10pt; font-style: italic">(numeric) </span><span ng-show="recipeForm.cook_time.$error.required" style="font-size: 10pt; color: red">- required</span></span>
    <input type="number" name="cook_time" ng-model="data.cook_time" ng-pattern="regex" required>
    </label>
 
@@ -33,7 +33,7 @@
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
-   <span class="input-label">Serving Size <span ng-show="recipeForm.serving_size.$error.required" style="font-size: 10pt; color: red">- required</span></span>
+   <span class="input-label">Serving Size <span style="font-size: 10pt; font-style: italic">(numeric) </span><span ng-show="recipeForm.serving_size.$error.required" style="font-size: 10pt; color: red">- required</span></span>
    <input type="number" name="serving_size" ng-model="data.serving_size" ng-pattern="regex" required>
    </label>
 
@@ -52,14 +52,9 @@
     <button ng-if="$index != inputs.length - 1" ng-click="removeInput($index)" class="button button-small button-assertive"  style="margin-right: 2%">
     <b>-</b></button>
     </div></div> -->
-    <div class="padding">
-    <div ng-messages="recipeForm.cook_time.$error">
-    <div ng-message="pattern">Must be numeric</div>
-    </div>
-    </div>
    <br/>
    <div class="padding">
-   <center><button class="button" ng-disabled="recipeForm.$invalid" ng-submit="submitRecipe()">Submit</button></center>
+   <center><button class="button" ng-disabled="recipeForm.$invalid">Submit</button></center>
    </div>
 </div>
 </form>
