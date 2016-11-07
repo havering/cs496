@@ -43,15 +43,17 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
   // POSTing with ionic: http://www.nikola-breznjak.com/blog/codeproject/posting-data-from-ionic-app-to-php-server/
   $scope.data = {};
  
-  $scope.submitRecipe = function(){
+  $scope.submitRecipe = function(recipeForm){
+    $scope.recipeForm = recipeForm;
       var link = 'http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/';
       console.log("Scope data contains: " + JSON.stringify($scope.data));
-      console.log("Scope inputs contains: " + JSON.stringify($scope.inputs));
       $http.post(link, {name: $scope.data.name, description: $scope.data.description, instructions: $scope.data.instructions, cook_time: parseInt($scope.data.cook_time), serving_size: parseInt($scope.data.serving_size), quantity: $scope.data.quantity}).then(function (res){
           $scope.response = res.data;
           console.log("Response from POST: " + JSON.stringify($scope.response));
           $location.path('/recipes');
         });
+      $scope.recipeForm.$setPristine(); // clear the form 
+      $scope.data = {};
     };
 
   // functions to add or remove ingredient fields from form

@@ -51,7 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   })
 
    .state('app.new', {
-      cache: false,
+    cache: false,
     url: '/recipes/new',
     views: {
       'menuContent': {

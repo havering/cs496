@@ -5,7 +5,7 @@
   <ion-content>
     <br/>
     <p>Want to create a new recipe for users to make? Fill out the form below!</p>
-    <form name="recipeForm" ng-submit="submitRecipe()" novalidate>
+    <form name="recipeForm" ng-submit="submitRecipe(recipeForm)" novalidate>
     <div class="list">
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Name  <span ng-show="recipeForm.name.$error.required" style="font-size: 10pt; color: red">- required</span></span>
