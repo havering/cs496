@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>
+		Ionic How-To Guide
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+    		$('[data-toggle="popover"]').popover();
+		});
+	</script>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-brand">Ionic How-To</div>
+  </div>
+</nav>
+<div class="container">
+	<h3>Introduction</h3>
+	<p>This how-to will walk the user through creating an Ionic app from scratch, using OSX as an operating system and the iOS emulator built into Xcode to emulate the application on an iPhone. The instructions here assume a basic familiarity with dynamically-typed programming languages, a previously-installed text editor as well as Xcode, using the Terminal, and the Chrome browser.</p>
+	<p>Ionic has two releases with significantly differing syntax as Ionic 1 is built on Angular 1, and Ionic 2 is built on Angular 2. For this how-to, we'll be using Ionic 1 and thus Angular 1 syntax. 
+
+	<h3>Getting Started</h3>
+	<p>To start off, you'll need to install some important components. Head over to <a href="https://nodejs.org/en/" target="_blank">NodeJS.org</a> and install Node.js, which will come with Node's packet manager, <a href="https://www.npmjs.com" target="_blank">npm</a>. The easiest way to install Node is through the installer, so it is suggested that you use it here. Once installed, you can check that the installation succeeded by typing</p>
+
+	<div class="code">npm -v</div>
+
+	<p>in the terminal. It should return a version number. If the command fails, attempt the installation again.
+	<p>Following successful installation of npm, you are ready to install Ionic. You have the option of installing Ionic either globally, on your entire system, or locally, in the project folder. In general, it is suggested that you install a package globally if you're going to be using the command line to interact with it. This will be the case with Ionic, so it is suggested that you install it globally with the command</p>
+
+	<div class="code">npm install -g ionic</div>
+
+	<p>We're going to be building an Ionic app that uses Cordova's geolocation, as well as several other <a href="https://cordova.apache.org" target="_blank">Cordova</a> enhancements, so you will also want to install Cordova globally with a similar command:</p>
+
+	<div class="code">npm install -g cordova</div>
+
+	<p>Now it's time to generate your Ionic app! In the terminal, navigate to the folder in which  you'd like your Ionic app to be created. Ionic has a variety of pre-made <a href="https://market.ionic.io/starters" target="_blank">templates</a> that you can choose from, ranging from very basic to doing almost all of the styling for you. The more complex templates are pretty overkill for this example, and take away some of the fun of doing the styling yourself, so we're going to use the very basic <a href="https://github.com/driftyco/ionic-starter-sidemenu" target="_blank">side menu</a> template and expand from there. To initialize an Ionic app with the side menu template, use the command</p>
+
+	<div class="code">ionic start how_to sidemenu</div>
+	<p>Ionic will start downloading required packages via npm, so make sure that you're connected to the internet. Some of the packages downloaded will have warnings about them being deprecated - while that might be true, and it may be possible to individually update the packages, your app will function fine with the deprecated packages so feel free to <a href="#" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="What could possibly go wrong?">ignore the warnings</a>.</p>
+	
+	<p>Once everything has been downloaded, you should find that a folder has been created with the name <span class="code">how_to</span>. Navigate inside the folder, then type</p>
+	
+	<div class="code">ionic serve</div>
+
+	<p>After a momentary pause, Ionic will start the webserver that serves a live version of your app, and launch your app in Chrome. If you accidentally close the browser window, you can navigate back to it by going to localhost with the default Ionic port:</p>
+
+	<div class="code">http://localhost:8100/</div>
+
+	<p>The app will redirect you to the default index, which, in the case of the sidemenu template, is</p>
+
+	<div class="code">http://localhost:8100/#/app/playlists</div>
+
+	<p>And now you're done, right? Only if you want a monochromatic app that serves up some sort of playlists. We don't, so it's time to move onto customizating and expanding our app.</p>
+</div>
+</body>
+</html>

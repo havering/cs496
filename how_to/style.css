@@ -1,0 +1,17 @@
+.code {
+	background-color: #cdcfd3;
+	font-family: monospace;
+	width: 40%;
+	padding: 10px 10px 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+p code {
+	padding: 10px;
+}
+
+body {
+	padding-top: 60px;
+	padding-bottom: 60px;
+}
