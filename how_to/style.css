@@ -25,6 +25,13 @@ body {
     max-height: 550px;
 }
 
+#ssuno {
+	height: auto; 
+    width: auto; 
+    max-width: 500px; 
+    max-height: 650px;
+}
+
 #fs {
 	height: auto;
 	width: auto;

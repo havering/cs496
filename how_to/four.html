@@ -45,9 +45,9 @@
 
 	<center>
 	<img src="ss-five.png" id="sstwo">
-	</center>
+	</center><br/>
 
-	<p>Pause briefly, you'll notice a that the structure of this controller includes a JavaScript function. In particular, there are currently three variables be passed in as parameters in the function -</p>
+	<p>Pausing briefly, you'll notice a that the structure of this controller includes a JavaScript function. In particular, there are currently three variables be passed in as parameters in the function -</p>
 
 	<div class="code">function($scope, $ionicModal, $timeout) {</div>
 
@@ -55,7 +55,7 @@
 
 	<p>Looking at the variables being passed in currently, we can also remove some of those. The <code>$scope</code> variable must remain - this is the variable that we will use to define variables that are available for use in the view. If you are familiar with Ruby on Rails, adding a scope-level variable is similar to creating an instance variable. </p>
 
-	<p>The other two variables, <code>$ionicModal</code> and <code>$timeout</code> were left over from some of the pre-generated code, so you can remove those from the controller parameters. AppCtrl should now look thus:</p>
+	<p>The other two variables, <code>$ionicModal</code> and <code>$timeout</code>, were left over from some of the pre-generated code, so you can remove those from the controller parameters. AppCtrl should now look thus:</p>
 
 	<center>
 	<p><img src="ss-six.png" id="sstwo"></p>

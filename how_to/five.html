@@ -65,15 +65,15 @@
 
 	<p>This will install the plugin; if you open up the <code>plugins</code> folder under your <code>how_to</code> directory, you should now see a <code>cordova-plugin-geolocation</code> folder. </p>
 
-	<p>Next, we need to install ngCordova for the project. You can use bower to install it with the command <code>bower install ngCordova</code>, or <a href="http://ngcordova.com" target="_blank">download the extensions directly</a> and yank the <code>ng-cordova.min.js</code> file within the zip file. If you choose the first option, then the file will be located at <code>www/lib/ngCordova/dist/ng-cordova.min.js</code>. If you choose the second option, you can put your code in the <code>www/js</code> folder. In order to make ngCordova accessible by the app, we also need to edit the <code>index.html</code> file by inserting a new script tag on the line before the line that holds the <code>cordova.js</code> script tag.</p>
+	<p>Next, we need to install ngCordova for the project. You can use bower to install it with the command <code>bower install ngCordova</code>, or <a href="http://ngcordova.com" target="_blank">download the extensions directly</a> and yank the <code>ng-cordova.min.js</code> file within the zip file. If you choose the first option, then the file will be located at <code>www/lib/ngCordova/dist/ng-cordova.min.js</code>. If you choose the second option, you can put your code in the <code>www/js</code> folder. In order to make ngCordova accessible by the app, we also need to edit the <code>index.html</code> file by inserting a new script tag on the line before the line that holds the <code>cordova.js</code> script tag.</p><br/>
 
 	<center>
 	<p><img src="ss-nine.png"></p>
-	</center>
+	</center><br/>
 
 	<p>Now we need to head back into our <code>controller.js</code> file. Here, we're going to pass in another variable after the <code>$scope</code> variable in the function parameters on line 3: <code>$cordovaGeolocation</code>. This will allow us to use the functionality of the Cordova plugin inside our controller. </p>
 
-	<p>To start off, we need to set the position options that we're going to be passing into the call to getting the user's position. We don't want the attempt to collect the geolocation of the user to tie up their device indefinitely, so we're going to set a <code>timeout</code> option. Additionally, because we'd like to load the position quickly to prevent the user from waiting for the dynamic content to appear on their screen, we're going to set the boolean value of <code>enableHighAccuracy</code> to false. If we cared more about having a very accurate position, at the expensive of load time, we could instead set it to true. </p>
+	<p>To start off, we need to set the position options that we're going to be passing into the call to getting the user's position. We don't want the attempt to collect the geolocation of the user to tie up their device indefinitely, so we're going to set a <code>timeout</code> option. Additionally, because we'd like to load the position quickly to prevent the user from waiting for the dynamic content to appear on their screen, we're going to set the boolean value of <code>enableHighAccuracy</code> to false. If we cared more about having a very accurate position, at the expense of load time, we could instead set it to true. </p>
 
 	<p><div class="code">var posOptions = {timeout: 10000, enableHighAccuracy: false};</div></p>
 
