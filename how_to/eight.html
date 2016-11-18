@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>
+		Ionic How-To Guide
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+    		$('[data-toggle="popover"]').popover();
+		});
+	</script>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-brand">Ionic How-To</div>
+    <ul class="nav navbar-nav">
+    <li class="active"><a href="seven.html">Previous</a></li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+    <li class="dropdown">
+  		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+  		<ul class="dropdown-menu pull-right">
+  		  <li><a href="index.html">Introduction & Getting Started</a></li>
+		  <li><a href="two.html">Working with the Views</a></li>
+   		  <li><a href="three.html">Changing Routes</a></li>
+   		  <li><a href="four.html">Updating the Controller</a></li>
+   		  <li><a href="five.html">Adding Geolocation</a></li>
+   		  <li><a href="six.html">Creating a Factory for API calls</a></li>
+   		  <li><a href="seven.html">Using OpenWeatherMap</a></li>
+   		  <li><a href="eight.html">Running in the Emulator</a></li>
+ 	 </ul>
+ 	 </li></ul>
+	</div>
+  </div>
+</nav>
+<div class="container">
+	<h3>Running in the Emulator</h3>
+	<p>Up until this point, we've been using the browser preview to see the changes made to our app. Assuming that one eventually wants to make more complex apps with Ionic, it is important to note that some of the input validations that perform as expected in Chrome do not perform the same while running in the Xcode emulator. Additionally, if you branch out into creating forms that POST to an API, you'll likely run into issues with the header files being passed back and forth.</p>
+	<p>The <code>ionic build</code> command is used to build an Ionic app into either Android or iOS. We're using the Xcode emulator, so <code>ionic build ios</code> will build your app. </p>
+
+	<center>
+	<p><img src="ss-twenty.png" id="sstwo"></p>
+	</center>
+
+	<p>Once the app has been built, you'll find a file with a <code>.xcodeproj</code> extension in <code>platforms/ios/</code>. It will be named the same as your project name, so in this case, the file is <code>how_to.xcodeproj</code>. </p>
+
+	<center>
+	<p><img src="ss-twenty1.png" id="sstwo"></p>
+	</center>
+
+	<p>Using Xcode, open the project file and press the Play button in the upper lefthand corner. This will build the project in Xcode. Xcode will prompt you to allow sharing your location:</p>
+
+	<center>
+	<p><img src="ss-twenty2.png" id="sstwo">
+	</p></center>
+
+	<p>Once you've allowed sharing your location, you'll notice that the location and the weather populates much faster in the emulator than it does in the browser preview.</p>
+
+	<center>
+	<p><img src="ss-twenty3.png" id="sstwo">
+	</p></center>
+
+	<p>A couple of notes before we wrap this up:</p>
+	<p><ol>
+	<li>If you press the play button in Xcode to build the project, and it builds but doesn't launch the emulator, open the <code>Product</code> menu, find the <code>Scheme</code> submenu, and ensure that <code>how_to</code> is the selected scheme to build.</li>
+	<li>From time to time, after accepting sharing location, the location (and thus the weather) fails to populate. If you look at the output in Xcode, you'll likely see an error that says <code>{"code":2,"message":"The operation couldn’t be completed. (kCLErrorDomain error 0.)"}</code>. The solution to this is to quit the emulator and rebuild the project.</li>
+	<li>If you'd like to test that the geolocation works for locations other than your own, you can manually change the location while the emulator is running by opening the <code>Debug</code> menu in the emulator, finding the <code>Location</code> submenu, and changing the <code>Custom location</code> there.</li>
+	</ol></p>
+
+	<p>And that's a a wrap! 
+</div>
+</body>
+</html>

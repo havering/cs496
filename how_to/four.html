@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>
+		Ionic How-To Guide
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-brand">Ionic How-To</div>
+    <ul class="nav navbar-nav">
+    <li class="active"><a href="three.html">Previous</a></li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+    <li class="active"><a href="five.html">Next</a></li>
+    <li class="dropdown">
+  		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+  		<ul class="dropdown-menu pull-right">
+  		  <li><a href="index.html">Introduction & Getting Started</a></li>
+		  <li><a href="two.html">Working with the Views</a></li>
+   		  <li><a href="three.html">Changing Routes</a></li>
+   		  <li><a href="four.html">Updating the Controller</a></li>
+   		  <li><a href="five.html">Adding Geolocation</a></li>
+   		  <li><a href="six.html">Creating a Factory for API calls</a></li>
+   		  <li><a href="seven.html">Using OpenWeatherMap</a></li>
+   		  <li><a href="eight.html">Running in the Emulator</a></li>
+ 	 </ul>
+ 	 </li></ul>
+	</div>
+  </div>
+</nav>
+<div class="container">
+	<h3>Updating the Controller</h3>
+	<p>MVC applications typically use different controllers to differentiate between and control different logic flows in an application. For this application, it is simple enough that we are going to have all the logic controlled within <code>AppCtrl</code>, and thus we can delete <code>PlaylistsCtrl</code> and <code>PlaylistCtrl</code>. Remember to add a semi-colon at the end of AppCtrl once that is done, however. You can also remove the login functions, as we won't be using them here.</p>
+
+	<center>
+	<img src="ss-five.png" id="sstwo">
+	</center>
+
+	<p>Pause briefly, you'll notice a that the structure of this controller includes a JavaScript function. In particular, there are currently three variables be passed in as parameters in the function -</p>
+
+	<div class="code">function($scope, $ionicModal, $timeout) {</div>
+
+	<p>The pattern here is that Angular variables (such as <code>$scope</code>) must have the dollar sign prepending them. In a later part of this how-to, we're going to be defining factories that create variables we'll also need to pass into the controller's function in order to use them within the controller. Those variables don't need to have dollar signs prepending them. </p>
+
+	<p>Looking at the variables being passed in currently, we can also remove some of those. The <code>$scope</code> variable must remain - this is the variable that we will use to define variables that are available for use in the view. If you are familiar with Ruby on Rails, adding a scope-level variable is similar to creating an instance variable. </p>
+
+	<p>The other two variables, <code>$ionicModal</code> and <code>$timeout</code> were left over from some of the pre-generated code, so you can remove those from the controller parameters. AppCtrl should now look thus:</p>
+
+	<center>
+	<p><img src="ss-six.png" id="sstwo"></p>
+	</center>
+
+	<p>With that done, we're ready to set up the geolocation for the app.</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>
+		Ionic How-To Guide
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-brand">Ionic How-To</div>
+    <ul class="nav navbar-nav">
+    <li class="active"><a href="index.html">Previous</a></li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+    <li class="active"><a href="three.html">Next</a></li>
+    <li class="dropdown">
+  		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+  		<ul class="dropdown-menu pull-right">
+  		  <li><a href="index.html">Introduction & Getting Started</a></li>
+		  <li><a href="two.html">Working with the Views</a></li>
+   		  <li><a href="three.html">Changing Routes</a></li>
+   		  <li><a href="four.html">Updating the Controller</a></li>
+   		  <li><a href="five.html">Adding Geolocation</a></li>
+   		  <li><a href="six.html">Creating a Factory for API calls</a></li>
+   		  <li><a href="seven.html">Using OpenWeatherMap</a></li>
+   		  <li><a href="eight.html">Running in the Emulator</a></li>
+ 	 </ul>
+ 	 </li></ul>
+	</div>
+  </div>
+</nav>
+<div class="container">
+	<h3>Working with the Views</h3>
+	<p>Currently, your application should look like the following:</p>
+	<center>
+	<p><img src="ss-two.png" id="sstwo"></p>
+	</center>
+
+	<p>We're going to be building a simple app that uses geolocation to find the user's location and displays it to the user, then uses that location retrieve and display the current weather for the user's location. The simplicity of this app means that we don't need much of the pre-built formatting given by the Ionic Sidemenu starter template, so let's start taking it apart. 
+
+	<p>When Ionic generated the code that makes up the current version of the app, it followed a specific file structure. You should navigate to your <code>how_to</code> folder in Finder. Inside there, you'll find another folder called <code>www</code>; inside that folder is another folder called <code>templates</code>. Inside here are the <b>Views</b> for your application. 
+	<center>
+	<p><img src="file_structure.png" id="fs"></p>
+	</center>
+	<p>Ionic is built upon <a href="https://angularjs.org/" target="_blank">Angular</a>, so the app's organization follows the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank">Model-View-Controller</a> (MVC) design pattern. Views are the portion of the application responsibile for visually presenting data to the user. 
+
+	<p>We only want to have one menu option from the side menu already created, the index view that will hold the user's weather and location. Having an application that consists of a single page means that it is, perhaps, a little silly to have a menu at all, but we'll be leaving it in in the interest of demonstrating how the side menu is implemented in general. Currently, the index view is of the file <code>playlists.html</code>, so let's rename that to <code>myweather.html</code>. Following that, delete the file named <code>playlist.html</code>, as well as the files named <code>login.html</code>, <code>search.html</code> and <code>browse.html</code>. At this point, the only file that you have not deleted or renamed is <code>menu.html</code>; this file governs the format of the side menu that pops out when clicked, so we're going to leave the name of the file the same. 
+
+	<p>If you still have your browser preview of the app open, you might have noticed that the screen has gone blank. This is to be expected, and will be rectified after we've finished making some basic changes to our view structure.
+
+	<p>In <code>menu.html</code>, there are now a series of broken links that we need to fix. You should rename the links and point them at the new names of the files we just renamed, as so:
+	<center>
+	<p><img src="ss-three.png"></p>
+	</center>
+	<p>For now, we're done changing the views. It's time to change the routes to point to the new views.</p>
+</div>
+</body>
+</html>

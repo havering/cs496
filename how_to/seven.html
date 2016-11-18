@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>
+		Ionic How-To Guide
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+    		$('[data-toggle="popover"]').popover();
+		});
+	</script>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-brand">Ionic How-To</div>
+    <ul class="nav navbar-nav">
+    <li class="active"><a href="six.html">Previous</a></li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+    <li class="active"><a href="eight.html">Next</a></li>
+    <li class="dropdown">
+  		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+  		<ul class="dropdown-menu pull-right">
+  		  <li><a href="index.html">Introduction & Getting Started</a></li>
+		  <li><a href="two.html">Working with the Views</a></li>
+   		  <li><a href="three.html">Changing Routes</a></li>
+   		  <li><a href="four.html">Updating the Controller</a></li>
+   		  <li><a href="five.html">Adding Geolocation</a></li>
+   		  <li><a href="six.html">Creating a Factory for API calls</a></li>
+   		  <li><a href="seven.html">Using OpenWeatherMap</a></li>
+   		  <li><a href="eight.html">Running in the Emulator</a></li>
+ 	 </ul>
+ 	 </li></ul>
+	</div>
+  </div>
+</nav>
+<div class="container">
+	<h3>Using OpenWeatherMap</h3>
+	<p>Open a new Chrome tab and visit <a href="http://www.openweathermap.org" target="_blank">OpenWeatherMap</a>. The top nav bar will have a link to sign up - navigate there, and fill out the form to sign up for an account. The default type of account available is free, but you need to sign up in order to receive the API key necessary to interact with their API.</p>
+
+	<center>
+	<p><img src="ss-sixteen.png" id="sstwo"></p>
+	</center>
+
+	<p>Once you've created an account, you will be prompted to answer a question about your proposed API use and then taken to the Setup tab of the user page. The second tab is titled API keys; click on the tab to see your pre-generated API key. Once there, copy the key. Back in your <code>apis.js</code> file, replace the <code>XXX</code> following <code>APIID</code> in the Weather resource with the API key from OpenWeatherMap. </p>
+
+	<p>Moving back to <code>controllers.js</code>, we can call the Weather API in the same way that we already modeled calling the Address API in the previous section. This can be placed after the call to assign the value of <code>$scope.fullAddress</code>.</p>
+
+	<center>
+	<p><img src="ss-eighteen.png"></p>
+	</center>
+
+	<p>OpenWeatherMap returns a JSON hash; inside that, the weather itself is an array with a single hash inside the array, so in order to access the weather description, we must refer to the 0 index on the weather array. Your updated <code>myweather.html</code> view should look as such:</p>
+
+	<center>
+	<p><img src="ss-seventeen.png">
+	</p></center>
+
+	<p>Not surprisingly, the part of the Pacific Northwest I'm in is currently cloudy, so my view updates with the description of the current weather.</p>
+
+	<center>
+	<p><img src="ss-nineteen.png">
+	</p></center>
+
+	<p>For our last step, it's time to open up our app in the Xcode emulator to see how it works on an iPhone 6s.</p>
+	</div></p>
+</div>
+</body>
+</html>

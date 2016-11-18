@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>
+		Ionic How-To Guide
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+    		$('[data-toggle="popover"]').popover();
+		});
+	</script>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-brand">Ionic How-To</div>
+    <ul class="nav navbar-nav">
+    <li class="active"><a href="four.html">Previous</a></li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+    <li class="active"><a href="six.html">Next</a></li>
+    <li class="dropdown">
+  		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+  		<ul class="dropdown-menu pull-right">
+  		  <li><a href="index.html">Introduction & Getting Started</a></li>
+		  <li><a href="two.html">Working with the Views</a></li>
+   		  <li><a href="three.html">Changing Routes</a></li>
+   		  <li><a href="four.html">Updating the Controller</a></li>
+   		  <li><a href="five.html">Adding Geolocation</a></li>
+   		  <li><a href="six.html">Creating a Factory for API calls</a></li>
+   		  <li><a href="seven.html">Using OpenWeatherMap</a></li>
+   		  <li><a href="eight.html">Running in the Emulator</a></li>
+ 	 </ul>
+ 	 </li></ul>
+	</div>
+  </div>
+</nav>
+<div class="container">
+	<h3>Adding Geolocation</h3>
+	<p>First, let's change a couple things about the <code>myweather.html</code> view so that we can tell when our geolocation request success. Currently, the view's code should look like this:</p>
+	
+	<center>
+	<p><img src="ss-seven.png"></p>
+	</center><br/>
+
+	<p>We're going to be serving up weather, not playlists, to our users, so you'll need to change a couple of things. First, change the view-title from "Playlists" to "My Weather". If you refresh your browser preview of the app, you should see that the title of the default page now says "My Weather". You do need to keep the <code>ion-content</code> tags, but you can delete both <code>ion-list</code> and <code>ion-item</code>. 	Let's add a quick greeting - we'll fill in the code that will actually display the user's location, later. </p>
+	
+	<center>
+	<p><img src="ss-eight.png"></p>
+	</center>
+
+	<p>In order to use geolocation with Ionic, we need to install the Cordova Geolocation plugin. This can be done with the following command:</p>
+
+	<p><div class="code">ionic plugin add cordova-plugin-geolocation</div></p>
+
+	<p>This will install the plugin; if you open up the <code>plugins</code> folder under your <code>how_to</code> directory, you should now see a <code>cordova-plugin-geolocation</code> folder. </p>
+
+	<p>Next, we need to install ngCordova for the project. You can use bower to install it with the command <code>bower install ngCordova</code>, or <a href="http://ngcordova.com" target="_blank">download the extensions directly</a> and yank the <code>ng-cordova.min.js</code> file within the zip file. If you choose the first option, then the file will be located at <code>www/lib/ngCordova/dist/ng-cordova.min.js</code>. If you choose the second option, you can put your code in the <code>www/js</code> folder. In order to make ngCordova accessible by the app, we also need to edit the <code>index.html</code> file by inserting a new script tag on the line before the line that holds the <code>cordova.js</code> script tag.</p>
+
+	<center>
+	<p><img src="ss-nine.png"></p>
+	</center>
+
+	<p>Now we need to head back into our <code>controller.js</code> file. Here, we're going to pass in another variable after the <code>$scope</code> variable in the function parameters on line 3: <code>$cordovaGeolocation</code>. This will allow us to use the functionality of the Cordova plugin inside our controller. </p>
+
+	<p>To start off, we need to set the position options that we're going to be passing into the call to getting the user's position. We don't want the attempt to collect the geolocation of the user to tie up their device indefinitely, so we're going to set a <code>timeout</code> option. Additionally, because we'd like to load the position quickly to prevent the user from waiting for the dynamic content to appear on their screen, we're going to set the boolean value of <code>enableHighAccuracy</code> to false. If we cared more about having a very accurate position, at the expensive of load time, we could instead set it to true. </p>
+
+	<p><div class="code">var posOptions = {timeout: 10000, enableHighAccuracy: false};</div></p>
+
+	<p>Following that, we're going to invoke the <code>$cordovaGeolocation</code> variable and call the <code>getCurrentPosition</code> function built into the plugin while passing in the position options we just defined above. </p>
+
+	<p><div class="code">$cordovaGeolocation<br/>
+   .getCurrentPosition(posOptions)</div></p>
+
+   <p>The <code>getCurrentPosition</code> function returns a <a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises" target="_blank">JavaScript Promise</a>, which allows for the call to retrieve the latitude and longitude to resolve asynchronously as the rest of the controller's functions (in this case, nothing, but not in all cases) to continue to execute as the app waits for the location to be provided. Because we need to have that Promise resolved before we can do anything with the returned coordinates, we're going to append a <code>.then</code> function to execute once the initial Promise is returned. </p>
+
+   <p><div class="code"> .then(function (position) {<br/>
+      &nbsp;&nbsp;&nbsp;$scope.lat  = position.coords.latitude;<br/>
+      &nbsp;&nbsp;&nbsp;$scope.long = position.coords.longitude;<br/>
+      &nbsp;&nbsp;&nbsp;console.log($scope.lat + '   ' + $scope.long);<br/>
+   }, function(err) {<br/>
+      &nbsp;&nbsp;&nbsp;console.log(err)<br/>
+   });</div></p>
+
+   <p>Remembering from earlier that we use the <code>$scope</code> variable to make a variable in the controller available in the view, the second and third lines of the above code set <code>$scope</code>-level variables that hold the returned latitude and longitude. We want those values to be translated into something more human-readable, but we can confirm the success of the geolocation by assigning the returned latitude and longitude to <code>$scope.lat</code> and <code>$scope.long</code> and then logging them to the console. I'm writing this from Vancouver, Washington, so my console output returns the following coordinates:</p>
+
+   <center>
+   <p><img src="ss-ten.png"></p>
+   </center>
+
+   <p>As nifty as that is, those coordinates aren't very human-readable, so the next section will walk through setting up a factory to call reverse geolocation on the OpenStreetmaps API.</p>
+</div>
+</body>
+</html>

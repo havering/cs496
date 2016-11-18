@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>
+		Ionic How-To Guide
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+    		$('[data-toggle="popover"]').popover();
+		});
+	</script>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-brand">Ionic How-To</div>
+    <ul class="nav navbar-nav">
+    <li class="active"><a href="five.html">Previous</a></li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+    <li class="active"><a href="seven.html">Next</a></li>
+    <li class="dropdown">
+  		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+  		<ul class="dropdown-menu pull-right">
+  		  <li><a href="index.html">Introduction & Getting Started</a></li>
+		  <li><a href="two.html">Working with the Views</a></li>
+   		  <li><a href="three.html">Changing Routes</a></li>
+   		  <li><a href="four.html">Updating the Controller</a></li>
+   		  <li><a href="five.html">Adding Geolocation</a></li>
+   		  <li><a href="six.html">Creating a Factory for API calls</a></li>
+   		  <li><a href="seven.html">Using OpenWeatherMap</a></li>
+ 	 </ul>
+ 	 </li></ul>
+	</div>
+  </div>
+</nav>
+<div class="container">
+	<h3>Creating a Factory for API calls</h3>
+	<p>To perhaps overly simplify, factories allow us to pass in a function (or multiple functions!) to the controller in the same way that we would pass in a normal variable. Inside the <code>www/js</code> folder, you should create a file called <code>apis.js</code>. Before moving any further, remember to include the new JS file in the project by adding a new script tag to <code>index.html</code>, right under the script tag that includes <code>js/controllers.js</code>. In this project, that should be line 36 of <code>index.html</code>.</p>
+
+	<center>
+	<p><img src="ss-eleven.png"></p>
+	</center>
+
+	<p>Back inside <code>apis.js</code>, add the following code:</p>
+
+	<p><div id="pagesix">angular.module('starter.apis', ['ngResource'])
+
+	<br/>.factory('Api', function ($resource) {
+    <br/>return {
+    <br/>&nbsp;&nbsp;&nbsp;Weather: $resource('http://api.openweathermap.org/data/2.5/weather?lat=:latitude&lon=:longitude&APPID=XXX'),
+    <br/>&nbsp;&nbsp;&nbsp;Address: $resource('http://nominatim.openstreetmap.org/reverse?format=json&lat=:latitude&lon=:longitude&addressdetails=1')
+    <br/>&nbsp;};
+	<br/>});
+	</div></p>
+
+	<p>What this does is create an <a href="https://docs.angularjs.org/guide/module" target="_blank">Angular module</a>, inside of which we define a factory that returns a given resource. In our case, there are two resources returned by <code>Api</code> - the RESTful interface with OpenWeatherMap and the same with OpenStreetmap. They both take two params (<code>:latitude</code> and <code>:longitude</code>), which we will be passing in using our controller. We're going to specifically called the reverse geolocation portion of the API, and passing in the <code>addressdetails</code> flag to note that we'd like the address broken down into individual elements. This will be handy later, when we don't want the entirety of the result displayed in the view, but instead opt to display the city and state returned.</p>
+
+	<p><b>Note:</b> for now, we are using <code>XXX</code> as a placeholder for the API key that we will need to sign up for in the next step.</p>
+
+	<p>In order to use the <code>ngResource</code> module, we'll need to hop back to the command line for a moment and install ngResource. This can be done with either npm, with the command <code>npm install angular-resource</code>, or using bower, with the command <code>bower install angular-resource</code>. From there, moving to <code>controllers.js</code>, we can now pass the factory into the controller by name, by setting it as a function param on line 3. </p>
+
+	<p><div id="pagesix">.controller('AppCtrl', function($scope, $cordovaGeolocation, Api) {</div></p>
+
+	<p>We also need to pass in the new <code>starter.apis</code> module on line 1 of the same file ... </p>
+
+	<p><div id="pagesix">angular.module('starter.controllers', ['ngCordova', 'starter.apis'])</div></p>
+
+	<p>... and we need to explicitly include the Angular JavaScript file that will allow <code>apis.js</code> to use <code>ngResource</code>, by including a new script tag after the <code>ionic.js</code> script tag.</p>
+
+	<center>
+	<p><img src="ss-twelve.png">
+	</p></center>
+
+	<p>Remembering that the geolocation function we wrote earlier is asynchronous and we'll have to wait for the latitude and longitude to be returned before we can call the OpenStreetmap API, we'll place the code for making that call inside the function in our controller, rather than after it. We need to return the data into a scope-level variable (again, so that we can use it in the view), so we're going to capture the entire JSON response into a <code>$scope.fullAddress</code> variable. The factory was set up as a means of interacting with a RESTful API, and so common RESTful calls like GET are built into the <code>Api</code> variable we passed in as a param. </p>
+
+	<center>
+	<p><img src="ss-thirteen.png">
+	</p></center>
+
+	<p>With the above code, we are now able to access the address of the user and output it in the view. While the variable is called <code>$scope.fullAddress</code> in the controller, in the view we can just refer to it without <code>$scope</code> and invoke it as <code>fullAddress</code>. I know from past experience that the JSON response returned from the OpenStreetmaps API allows you to access the city and state by appending <code>.address.city</code> and <code>.address.state</code> to <code>fullAddress</code> in the view.</p>
+
+	<center>
+	<p><img src="ss-fourteen.png">
+	</p></center>
+
+	<p>And with that, after a momentary pause while the call to geolocation and then the OpenStreetmap APIs are completed, my location is displayed on the screen.</p>
+
+	<center>
+	<p><img src="ss-fifteen.png">
+	</p></center>
+
+	<p>Now it's time to sign up for the OpenWeatherMap API, get our API key, and start using the Weather resource to output the weather to the view as well.</p>
+
+	</div></p>
+</div>
+</body>
+</html>
