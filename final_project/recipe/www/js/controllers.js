@@ -107,8 +107,16 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
   $scope.recipe = Api.Recipe.get({recipe_id: parseInt($stateParams.recipe_id)});
   $scope.ingredients = Api.RecipeIngredients.query({recipe_id: parseInt($stateParams.recipe_id)});
 
+  // using .then on promise return to set variables: http://stackoverflow.com/questions/25045861/accessing-promises-elements-which-are-objects-and-not-simple-types
+  $scope.recipe.$promise.then(function(recipe) {
+    $scope.cook_time = parseInt($scope.recipe.cook_time);
+    $scope.serving_size = parseInt($scope.recipe.serving_size);
+  })
+
   $scope.deleteRecipe = function() {
     Api.Recipe.delete({recipe_id: parseInt($stateParams.recipe_id)});
     $location.path('/recipes');
   }
+
+
 })

@@ -81,6 +81,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+
+  .state('app.edit', {
+    cache: false,
+    url: '/recipes/:recipe_id/edit',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/edit.html',
+        controller: 'RecipeCtrl'
+      }
+    }
+  });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/mynav');
 });

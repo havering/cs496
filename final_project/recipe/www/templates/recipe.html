@@ -22,9 +22,10 @@
       </div>
     </div>
 
-    <div class="delete_button">
+    <div class="manip_buttons">
     <center>
     <button class="button button-outline button-positive" ng-click="deleteRecipe()">Delete Recipe</button>
+    <a href="#/app/recipes/{{recipe.recipe_id | number:0}}/edit"><button class="button button-outline button-positive">Edit Recipe</button></a>
     </center>
     </div>
   </ion-content>
