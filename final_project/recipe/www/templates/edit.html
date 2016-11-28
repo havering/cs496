@@ -5,7 +5,7 @@
   <ion-content>
     <br/>
 
-    <form name="recipeForm" ng-submit="submitRecipe(recipeForm)" novalidate>
+    <form name="recipeForm" ng-submit="submitEditRecipe(recipeForm)" novalidate>
     <div class="list">
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Name  <span ng-show="recipeForm.name.$error.required" style="font-size: 10pt; color: red">- required</span></span>
@@ -24,7 +24,7 @@
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Cook Time  <span style="font-size: 10pt; font-style: italic">(numeric) </span><span ng-show="recipeForm.cook_time.$error.required" style="font-size: 10pt; color: red">- required</span></span>
-   <input type="number" name="cook_time" ng-model="cook_time" ng-pattern="regex" required>
+   <input type="number" name="cook_time" ng-model="recipe.cook_time" ng-pattern="regex" required>
    </label>
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
@@ -34,7 +34,7 @@
 
    <label class="item item-input item-stacked-label" style="margin-right: 2%; padding-right: 2%">
    <span class="input-label">Serving Size <span style="font-size: 10pt; font-style: italic">(numeric) </span><span ng-show="recipeForm.serving_size.$error.required" style="font-size: 10pt; color: red">- required</span></span>
-   <input type="number" name="serving_size" ng-model="serving_size" ng-pattern="regex" required>
+   <input type="number" name="serving_size" ng-model="recipe.serving_size" ng-pattern="regex" required>
    </label>
 
    <!-- Dynamically adding items to form: http://stackoverflow.com/questions/31579909/add-more-button-for-generating-dynamic-form-inputs-using-ionic-framework -->

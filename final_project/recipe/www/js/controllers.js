@@ -102,15 +102,15 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
   $scope.recipes = Api.Recipe.query();
 })
 
-.controller('RecipeCtrl', function($scope, $stateParams, Api, $location) {
+.controller('RecipeCtrl', function($scope, $stateParams, Api, $location, $http) {
   console.log("recipe_id: " + parseInt($stateParams.recipe_id));
   $scope.recipe = Api.Recipe.get({recipe_id: parseInt($stateParams.recipe_id)});
   $scope.ingredients = Api.RecipeIngredients.query({recipe_id: parseInt($stateParams.recipe_id)});
 
   // using .then on promise return to set variables: http://stackoverflow.com/questions/25045861/accessing-promises-elements-which-are-objects-and-not-simple-types
   $scope.recipe.$promise.then(function(recipe) {
-    $scope.cook_time = parseInt($scope.recipe.cook_time);
-    $scope.serving_size = parseInt($scope.recipe.serving_size);
+    $scope.recipe.cook_time = parseInt($scope.recipe.cook_time);
+    $scope.recipe.serving_size = parseInt($scope.recipe.serving_size);
   })
 
   $scope.deleteRecipe = function() {
@@ -118,5 +118,17 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
     $location.path('/recipes');
   }
 
+  $scope.submitEditRecipe = function(recipeForm) {
+      $scope.recipeForm = recipeForm;
+      var link = 'http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/' + $stateParams.recipe_id;
+      console.log("link is: " + link);
+      console.log("Scope recipe contains: " + JSON.stringify($scope.recipe));
+      $http.put(link, {name: $scope.recipe.name, description: $scope.recipe.description, instructions: $scope.recipe.instructions, cook_time: parseInt($scope.recipe.cook_time), serving_size: parseInt($scope.recipe.serving_size), quantity: $scope.recipe.quantity}).then(function (res){
+          $scope.response = res.data;
+          console.log("Response from POST: " + JSON.stringify($scope.response));
+          $location.path('/recipes');
+        });
+      $scope.recipeForm.$setPristine(); // clear the form 
+    };
 
 })
