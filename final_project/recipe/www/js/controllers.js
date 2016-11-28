@@ -102,8 +102,13 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
   $scope.recipes = Api.Recipe.query();
 })
 
-.controller('RecipeCtrl', function($scope, $stateParams, Api) {
+.controller('RecipeCtrl', function($scope, $stateParams, Api, $location) {
   console.log("recipe_id: " + parseInt($stateParams.recipe_id));
   $scope.recipe = Api.Recipe.get({recipe_id: parseInt($stateParams.recipe_id)});
   $scope.ingredients = Api.RecipeIngredients.query({recipe_id: parseInt($stateParams.recipe_id)});
+
+  $scope.deleteRecipe = function() {
+    Api.Recipe.delete({recipe_id: parseInt($stateParams.recipe_id)});
+    $location.path('/recipes');
+  }
 })
