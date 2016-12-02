@@ -1,6 +1,6 @@
-angular.module('starter.controllers', ['starter.services', 'ngCordova'])
+angular.module('starter.controllers', ['starter.services', 'ngCordova', 'ngCordovaOauth'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window, $cordovaGeolocation) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window, $cordovaGeolocation, $cordovaOauth) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -9,36 +9,47 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  // Form data for the login modal
-  $scope.loginData = {};
+  // // Form data for the login modal
+  // $scope.loginData = {};
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
+  // // Create the login modal that we will use later
+  // $ionicModal.fromTemplateUrl('templates/login.html', {
+  //   scope: $scope
+  // }).then(function(modal) {
+  //   $scope.modal = modal;
+  // });
 
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
+  // // Triggered in the login modal to close it
+  // $scope.closeLogin = function() {
+  //   $scope.modal.hide();
+  // };
 
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
+  // // Open the login modal
+  // $scope.login = function() {
+  //   $scope.modal.show();
+  // };
 
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
+  // // Perform the login action when the user submits the login form
+  // $scope.doLogin = function() {
+  //   console.log('Doing login', $scope.loginData);
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
+  //   // Simulate a login delay. Remove this and replace with your login
+  //   // code if using a login system
+  //   $timeout(function() {
+  //     $scope.closeLogin();
+  //   }, 1000);
+  // };
+
+  $scope.googleLogin = function() {
+    console.log("calling googleLogin");
+        $cordovaOauth.google("63608030244-mp9sbpbj0vcfonuquai49inr96p33tjg.apps.googleusercontent.com", ["email", "profile"]).then(function(result) {
+            $scope.details = result.access_token;
+            console.log("success");
+        }, function(error) {
+          console.log("There was an error: " + error);
+        });
+    }
+
 
   // POSTing with ionic: http://www.nikola-breznjak.com/blog/codeproject/posting-data-from-ionic-app-to-php-server/
   $scope.data = {};
@@ -118,11 +129,11 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
     $location.path('/recipes');
   }
 
+  // using put: http://techfunda.com/howto/573/http-put-server-request
   $scope.submitEditRecipe = function(recipeForm) {
       $scope.recipeForm = recipeForm;
       var link = 'http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/' + $stateParams.recipe_id;
-      console.log("link is: " + link);
-      console.log("Scope recipe contains: " + JSON.stringify($scope.recipe));
+
       $http.put(link, {name: $scope.recipe.name, description: $scope.recipe.description, instructions: $scope.recipe.instructions, cook_time: parseInt($scope.recipe.cook_time), serving_size: parseInt($scope.recipe.serving_size), quantity: $scope.recipe.quantity}).then(function (res){
           $scope.response = res.data;
           console.log("Response from POST: " + JSON.stringify($scope.response));
