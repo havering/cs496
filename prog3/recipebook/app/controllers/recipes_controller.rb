@@ -34,6 +34,7 @@ class RecipesController < ApplicationController
     cook_time = params['cook_time']
     quantity = params['quantity']
     serving_size = params['serving_size']
+    uid = params['user_id']
     aws_params = Hash.new
     aws_params[:custom_fields] = {
       'name' => name,
@@ -41,7 +42,8 @@ class RecipesController < ApplicationController
       'instructions' => instructions,
       'cook_time' => cook_time,
       'quantity' => quantity,
-      'serving_size' => serving_size
+      'serving_size' => serving_size,
+      'user_id' => uid
     }
     if Aws.save_recipe_to_db(aws_params)
       msg = {:notice => "Recipe created!"}
@@ -62,6 +64,7 @@ class RecipesController < ApplicationController
     cook_time = params['cook_time']
     quantity = params['quantity']
     serving_size = params['serving_size']
+    uid = params['user_id']
     aws_params = Hash.new
     aws_params[:custom_fields] = {
       'recipe_id' => rid,
@@ -70,7 +73,8 @@ class RecipesController < ApplicationController
       'instructions' => instructions,
       'cook_time' => cook_time,
       'quantity' => quantity,
-      'serving_size' => serving_size
+      'serving_size' => serving_size,
+      'user_id' => uid
     }
     if Aws.update_recipe(aws_params)
       msg = {:notice => "Recipe updated!"}

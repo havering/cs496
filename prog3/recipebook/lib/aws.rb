@@ -33,7 +33,8 @@ module Aws
                                              'instructions' => fields['instructions'],
                                              'cook_time' => fields['cook_time'],
                                              'quantity' => fields['quantity'],
-                                             'serving_size' => fields['serving_size']
+                                             'serving_size' => fields['serving_size'],
+                                             'user_id' => fields['user_id']
                                       }})
   end
 
@@ -114,6 +115,10 @@ module Aws
                                            },
                                            "serving_size" => {
                                              value: params[:custom_fields]['serving_size'].to_i,
+                                             action: "PUT",
+                                           },
+                                           "user_id" => {
+                                             value: params[:custom_fields]['user_id'].to_i,
                                              action: "PUT",
                                            }
                                          }})
