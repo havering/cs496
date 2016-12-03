@@ -4,9 +4,13 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordovaOauth'])
 
-.run(function($ionicPlatform) {
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova', 'firebase'])
+.constant('FirebaseUrl', 'https://ionicle.firebaseio.com/')
+
+.service('rootRef', ['FirebaseUrl', Firebase])
+
+.run(function($ionicPlatform, $rootScope, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,6 +24,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordo
       StatusBar.styleDefault();
     }
   });
+
+  // $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+  //   // We can catch the error thrown when the $requireAuth promise is rejected
+  //   // and redirect the user back to the home page
+  //   if (error === 'AUTH_REQUIRED') {
+  //     $state.go('login');
+  //   }
+  // })
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -82,6 +94,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordo
     }
   })
 
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl as ctrl'
+  })
+
   .state('app.edit', {
     cache: false,
     url: '/recipes/:recipe_id/edit',
@@ -93,5 +111,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordo
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/mynav');
+  $urlRouterProvider.otherwise('/login');
 });

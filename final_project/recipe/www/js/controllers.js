@@ -1,6 +1,6 @@
-angular.module('starter.controllers', ['starter.services', 'ngCordova', 'ngCordovaOauth'])
+angular.module('starter.controllers', ['starter.services', 'ngCordova'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window, $cordovaGeolocation, $cordovaOauth) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window, $cordovaGeolocation) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -40,15 +40,6 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova', 'ngCordo
   //   }, 1000);
   // };
 
-  $scope.googleLogin = function() {
-    console.log("calling googleLogin");
-        $cordovaOauth.google("63608030244-mp9sbpbj0vcfonuquai49inr96p33tjg.apps.googleusercontent.com", ["email", "profile"]).then(function(result) {
-            $scope.details = result.access_token;
-            console.log("success");
-        }, function(error) {
-          console.log("There was an error: " + error);
-        });
-    }
 
 
   // POSTing with ionic: http://www.nikola-breznjak.com/blog/codeproject/posting-data-from-ionic-app-to-php-server/
@@ -143,3 +134,15 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova', 'ngCordo
     };
 
 })
+
+.controller('LoginCtrl', function(Auth, $state) {
+  this.loginWithGoogle = function loginWithGoogle() {
+    Auth.$authWithOAuthPopup('google')
+      .then(function(authData) {
+        console.log(authData);
+        console.log("************");
+        $state.go('app.mynav');
+      });
+  };
+})
+

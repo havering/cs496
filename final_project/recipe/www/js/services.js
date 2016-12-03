@@ -1,4 +1,6 @@
-angular.module('starter.services', ['ngResource'])
+angular.module('starter.services', ['firebase', 'ngResource'])
+
+.factory('Auth', Auth)
 
 // multiple GETs in one factory: http://stackoverflow.com/questions/17233481/angularjs-creating-multiple-factories-for-every-endpoint
 .factory('Api', function ($resource) {
@@ -8,3 +10,9 @@ angular.module('starter.services', ['ngResource'])
     	Address: $resource('http://nominatim.openstreetmap.org/reverse?format=json&lat=:latitude&lon=:longitude&addressdetails=1')
     };
 });
+
+
+function Auth(rootRef, $firebaseAuth) {
+  return $firebaseAuth(rootRef);
+}
+Auth.$inject = ['rootRef', '$firebaseAuth'];
