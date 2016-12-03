@@ -107,7 +107,7 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
   $scope.deleteRecipe = function() {
     Api.Recipe.delete({recipe_id: parseInt($stateParams.recipe_id)});
     // $location.path('/recipes');
-    $state.go('app.recipes');
+    $state.go('app.mynav');
   }
 
   // using put: http://techfunda.com/howto/573/http-put-server-request
