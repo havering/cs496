@@ -24,14 +24,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       StatusBar.styleDefault();
     }
   });
-
-  // $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-  //   // We can catch the error thrown when the $requireAuth promise is rejected
-  //   // and redirect the user back to the home page
-  //   if (error === 'AUTH_REQUIRED') {
-  //     $state.go('login');
-  //   }
-  // })
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -97,7 +89,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
-    controller: 'LoginCtrl as ctrl'
+    controller: 'AppCtrl'
   })
 
   .state('app.edit', {

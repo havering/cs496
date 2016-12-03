@@ -1,46 +1,11 @@
 angular.module('starter.controllers', ['starter.services', 'ngCordova'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window, $cordovaGeolocation) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window, $cordovaGeolocation, Auth, $state) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  // // Form data for the login modal
-  // $scope.loginData = {};
-
-  // // Create the login modal that we will use later
-  // $ionicModal.fromTemplateUrl('templates/login.html', {
-  //   scope: $scope
-  // }).then(function(modal) {
-  //   $scope.modal = modal;
-  // });
-
-  // // Triggered in the login modal to close it
-  // $scope.closeLogin = function() {
-  //   $scope.modal.hide();
-  // };
-
-  // // Open the login modal
-  // $scope.login = function() {
-  //   $scope.modal.show();
-  // };
-
-  // // Perform the login action when the user submits the login form
-  // $scope.doLogin = function() {
-  //   console.log('Doing login', $scope.loginData);
-
-  //   // Simulate a login delay. Remove this and replace with your login
-  //   // code if using a login system
-  //   $timeout(function() {
-  //     $scope.closeLogin();
-  //   }, 1000);
-  // };
-
-
 
   // POSTing with ionic: http://www.nikola-breznjak.com/blog/codeproject/posting-data-from-ionic-app-to-php-server/
   $scope.data = {};
@@ -52,7 +17,8 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
       $http.post(link, {name: $scope.data.name, description: $scope.data.description, instructions: $scope.data.instructions, cook_time: parseInt($scope.data.cook_time), serving_size: parseInt($scope.data.serving_size), quantity: $scope.data.quantity}).then(function (res){
           $scope.response = res.data;
           console.log("Response from POST: " + JSON.stringify($scope.response));
-          $location.path('/recipes');
+          // $location.path('/recipes');
+          $state.go('app.recipes');
         });
       $scope.recipeForm.$setPristine(); // clear the form 
       $scope.data = {};
@@ -98,13 +64,30 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
 
    // set regex to detect if number is entered or not
    $scope.regex = '\\d+';
+
+   $scope.loginWithGoogle = function() {
+    Auth.$authWithOAuthPopup('google')
+      .then(function(authData) {
+        console.log(authData);
+        $scope.authData = authData;
+        console.log("************");
+        $state.go('app.mynav');
+      });
+  }
+
+  $scope.logoutWithGoogle = function() {
+    console.log("inside logoutWithGoogle");
+    Auth.$unauth();
+    $http.jsonp('https://accounts.google.com/logout');
+    $state.go('login');
+  }
 }) // end of AppCtrl
 
 .controller('RecipesCtrl', function($scope, Api) {
   $scope.recipes = Api.Recipe.query();
 })
 
-.controller('RecipeCtrl', function($scope, $stateParams, Api, $location, $http) {
+.controller('RecipeCtrl', function($scope, $stateParams, Api, $location, $http, $state) {
   console.log("recipe_id: " + parseInt($stateParams.recipe_id));
   $scope.recipe = Api.Recipe.get({recipe_id: parseInt($stateParams.recipe_id)});
   $scope.ingredients = Api.RecipeIngredients.query({recipe_id: parseInt($stateParams.recipe_id)});
@@ -117,7 +100,8 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
 
   $scope.deleteRecipe = function() {
     Api.Recipe.delete({recipe_id: parseInt($stateParams.recipe_id)});
-    $location.path('/recipes');
+    // $location.path('/recipes');
+    $state.go('app.recipes');
   }
 
   // using put: http://techfunda.com/howto/573/http-put-server-request
@@ -128,21 +112,11 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
       $http.put(link, {name: $scope.recipe.name, description: $scope.recipe.description, instructions: $scope.recipe.instructions, cook_time: parseInt($scope.recipe.cook_time), serving_size: parseInt($scope.recipe.serving_size), quantity: $scope.recipe.quantity}).then(function (res){
           $scope.response = res.data;
           console.log("Response from POST: " + JSON.stringify($scope.response));
-          $location.path('/recipes');
+          // $location.path('/recipes');
+          $state.go('app.recipes');
         });
       $scope.recipeForm.$setPristine(); // clear the form 
     };
 
-})
-
-.controller('LoginCtrl', function(Auth, $state) {
-  this.loginWithGoogle = function loginWithGoogle() {
-    Auth.$authWithOAuthPopup('google')
-      .then(function(authData) {
-        console.log(authData);
-        console.log("************");
-        $state.go('app.mynav');
-      });
-  };
-})
+});
 
