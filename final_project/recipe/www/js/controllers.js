@@ -80,6 +80,7 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
     console.log("inside logoutWithGoogle");
     Auth.$unauth();
     $http.jsonp('https://accounts.google.com/logout');
+    $rootScope.authData = "";
     $state.go('login');
   }
 }) // end of AppCtrl
@@ -88,7 +89,9 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
   $scope.recipes = Api.Recipe.query();
 })
 
-.controller('RecipeCtrl', function($scope, $stateParams, Api, $location, $http, $state) {
+.controller('RecipeCtrl', function($scope, $stateParams, Api, $location, $http, $state, $rootScope) {
+  $scope.userId = $rootScope.authData.google.id;
+
   console.log("recipe_id: " + parseInt($stateParams.recipe_id));
   $scope.recipe = Api.Recipe.get({recipe_id: parseInt($stateParams.recipe_id)});
   $scope.ingredients = Api.RecipeIngredients.query({recipe_id: parseInt($stateParams.recipe_id)});
@@ -97,7 +100,8 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
   $scope.recipe.$promise.then(function(recipe) {
     $scope.recipe.cook_time = parseInt($scope.recipe.cook_time);
     $scope.recipe.serving_size = parseInt($scope.recipe.serving_size);
-    $scope.userId = parseInt($scope.recipe.user_id);
+    $scope.recipe.user_id = parseInt($scope.recipe.user_id);
+
   })
 
   $scope.deleteRecipe = function() {
@@ -111,7 +115,7 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
       $scope.recipeForm = recipeForm;
       var link = 'http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/' + $stateParams.recipe_id;
 
-      $http.put(link, {name: $scope.recipe.name, description: $scope.recipe.description, instructions: $scope.recipe.instructions, cook_time: parseInt($scope.recipe.cook_time), serving_size: parseInt($scope.recipe.serving_size), quantity: $scope.recipe.quantity, user_id: $rootScope.authData.google.id}).then(function (res){
+      $http.put(link, {name: $scope.recipe.name, description: $scope.recipe.description, instructions: $scope.recipe.instructions, cook_time: parseInt($scope.recipe.cook_time), serving_size: parseInt($scope.recipe.serving_size), quantity: $scope.recipe.quantity, user_id: $scope.recipe.user_id}).then(function (res){
           $scope.response = res.data;
           console.log("Response from POST: " + JSON.stringify($scope.response));
           // $location.path('/recipes');

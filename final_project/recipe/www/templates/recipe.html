@@ -1,4 +1,9 @@
 <ion-view view-title="">
+<ion-nav-buttons side ="right">
+      <a href="#/app/mynav"><button class="button">
+         Home
+      </button></a>
+   </ion-nav-buttons>
   <ion-content>
     <div class="list card">
       <div class="item">
@@ -27,6 +32,8 @@
     <button class="button button-outline button-royal" ng-click="deleteRecipe()">Delete Recipe</button>
     <a href="#/app/recipes/{{recipe.recipe_id | number:0}}/edit"><button class="button button-outline button-royal">Edit Recipe</button></a>
     </center>
+
     </div>
+
   </ion-content>
 </ion-view>
