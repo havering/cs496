@@ -97,6 +97,7 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
   $scope.recipe.$promise.then(function(recipe) {
     $scope.recipe.cook_time = parseInt($scope.recipe.cook_time);
     $scope.recipe.serving_size = parseInt($scope.recipe.serving_size);
+    $scope.userId = parseInt($scope.recipe.user_id);
   })
 
   $scope.deleteRecipe = function() {

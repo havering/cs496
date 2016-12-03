@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class="manip_buttons">
+    <div class="manip_buttons" ng-if="userId == recipe.user_id">
     <center>
     <button class="button button-outline button-royal" ng-click="deleteRecipe()">Delete Recipe</button>
     <a href="#/app/recipes/{{recipe.recipe_id | number:0}}/edit"><button class="button button-outline button-royal">Edit Recipe</button></a>
