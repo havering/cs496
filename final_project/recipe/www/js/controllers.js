@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.services', 'ngCordova'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window, $cordovaGeolocation, Auth, $state) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $location, Api, $window, $cordovaGeolocation, Auth, $state, $rootScope) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -14,7 +14,7 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
     $scope.recipeForm = recipeForm;
       var link = 'http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/';
       console.log("Scope data contains: " + JSON.stringify($scope.data));
-      $http.post(link, {name: $scope.data.name, description: $scope.data.description, instructions: $scope.data.instructions, cook_time: parseInt($scope.data.cook_time), serving_size: parseInt($scope.data.serving_size), quantity: $scope.data.quantity}).then(function (res){
+      $http.post(link, {name: $scope.data.name, description: $scope.data.description, instructions: $scope.data.instructions, cook_time: parseInt($scope.data.cook_time), serving_size: parseInt($scope.data.serving_size), quantity: $scope.data.quantity, user_id: $scope.authData.google.id}).then(function (res){
           $scope.response = res.data;
           console.log("Response from POST: " + JSON.stringify($scope.response));
           // $location.path('/recipes');
@@ -70,6 +70,7 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
       .then(function(authData) {
         console.log(authData);
         $scope.authData = authData;
+        $rootScope.authData = authData;
         console.log("************");
         $state.go('app.mynav');
       });
@@ -109,7 +110,7 @@ angular.module('starter.controllers', ['starter.services', 'ngCordova'])
       $scope.recipeForm = recipeForm;
       var link = 'http://recipe.ezmaz2hnxw.us-west-2.elasticbeanstalk.com/recipes/' + $stateParams.recipe_id;
 
-      $http.put(link, {name: $scope.recipe.name, description: $scope.recipe.description, instructions: $scope.recipe.instructions, cook_time: parseInt($scope.recipe.cook_time), serving_size: parseInt($scope.recipe.serving_size), quantity: $scope.recipe.quantity}).then(function (res){
+      $http.put(link, {name: $scope.recipe.name, description: $scope.recipe.description, instructions: $scope.recipe.instructions, cook_time: parseInt($scope.recipe.cook_time), serving_size: parseInt($scope.recipe.serving_size), quantity: $scope.recipe.quantity, user_id: $rootScope.authData.google.id}).then(function (res){
           $scope.response = res.data;
           console.log("Response from POST: " + JSON.stringify($scope.response));
           // $location.path('/recipes');
